@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "kazutility",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/wontaeyoung/KazUtility",
+      "state" : {
+        "revision" : "8575ae5caad04726dbae060ebcc213c4251c8696",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "snapkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SnapKit/SnapKit",
+      "state" : {
+        "revision" : "e74fe2a978d1216c3602b129447c7301573cc2d8",
+        "version" : "5.7.0"
+      }
+    }
+  ],
+  "version" : 2
+}
