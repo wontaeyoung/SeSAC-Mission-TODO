@@ -24,10 +24,11 @@ struct TodoItem: Entity {
   }
 }
 
-enum TodoPriority: String {
+enum TodoPriority: String, CaseIterable {
   case high = "높음"
   case middle = "중간"
   case low = "낮음"
+  case none = "없음"
   
   var title: String {
     return self.rawValue
@@ -35,7 +36,7 @@ enum TodoPriority: String {
 }
 
 
-enum TodoState: String {
+enum TodoState: String, CaseIterable {
   case today = "오늘"
   case plan = "예정"
   case all = "전체"
@@ -49,16 +50,16 @@ enum TodoState: String {
   var symbol: String {
     switch self {
       case .today, .plan:
-        return "calendar.circle.fill"
+        return "calendar"
         
       case .all:
-        return "tray.circle.fill"
+        return "tray.fill"
         
       case .flag:
-        return "flag.circle.fill"
+        return "flag.fill"
         
       case .done:
-        return "checkmark.circle.fill"
+        return "checkmark"
     }
   }
   
@@ -91,10 +92,7 @@ enum TodoState: String {
       $0.baseForegroundColor = tintColor
       $0.baseBackgroundColor = backColor
       $0.cornerStyle = .capsule
+      $0.buttonSize = .mini
     }
-  }
-  
-  var icon: UIButton {
-    return UIButton(configuration: config)
   }
 }
