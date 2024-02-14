@@ -7,18 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E44D5B02B7CA39D00546F46 /* KazUtility in Frameworks */ = {isa = PBXBuildFile; productRef = 6E44D5AF2B7CA39D00546F46 /* KazUtility */; };
+		6E44D5B32B7CA56700546F46 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E44D5B22B7CA56700546F46 /* HomeViewController.swift */; };
+		6E44D5B62B7CA57700546F46 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E44D5B52B7CA57700546F46 /* AppCoordinator.swift */; };
+		6E44D5B92B7CA59D00546F46 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6E44D5B82B7CA59D00546F46 /* SnapKit */; };
+		6E44D5BB2B7CAA1B00546F46 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E44D5BA2B7CAA1B00546F46 /* HomeCoordinator.swift */; };
+		6E44D5BD2B7CB16C00546F46 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E44D5BC2B7CB16C00546F46 /* HomeViewModel.swift */; };
+		6E44D5BF2B7CE56F00546F46 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E44D5BE2B7CE56F00546F46 /* TodoItem.swift */; };
+		6E44D5C12B7D780C00546F46 /* TodoStateFilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E44D5C02B7D780C00546F46 /* TodoStateFilterCollectionViewCell.swift */; };
+		6E44D5C82B7D830300546F46 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E44D5C72B7D830300546F46 /* CardView.swift */; };
 		6E8F732B2B7CA00E005B2737 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8F732A2B7CA00E005B2737 /* AppDelegate.swift */; };
 		6E8F732D2B7CA00E005B2737 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8F732C2B7CA00E005B2737 /* SceneDelegate.swift */; };
-		6E8F732F2B7CA00E005B2737 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8F732E2B7CA00E005B2737 /* ViewController.swift */; };
 		6E8F73342B7CA010005B2737 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E8F73332B7CA010005B2737 /* Assets.xcassets */; };
 		6E8F73372B7CA010005B2737 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E8F73352B7CA010005B2737 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6E44D5B22B7CA56700546F46 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		6E44D5B52B7CA57700546F46 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		6E44D5BA2B7CAA1B00546F46 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		6E44D5BC2B7CB16C00546F46 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		6E44D5BE2B7CE56F00546F46 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
+		6E44D5C02B7D780C00546F46 /* TodoStateFilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStateFilterCollectionViewCell.swift; sourceTree = "<group>"; };
+		6E44D5C72B7D830300546F46 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		6E8F73272B7CA00E005B2737 /* SeSAC-Mission-TODO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SeSAC-Mission-TODO.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E8F732A2B7CA00E005B2737 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E8F732C2B7CA00E005B2737 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		6E8F732E2B7CA00E005B2737 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6E8F73332B7CA010005B2737 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6E8F73362B7CA010005B2737 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6E8F73382B7CA010005B2737 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -29,6 +43,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E44D5B02B7CA39D00546F46 /* KazUtility in Frameworks */,
+				6E44D5B92B7CA59D00546F46 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +57,7 @@
 				6E8F732A2B7CA00E005B2737 /* AppDelegate.swift */,
 				6E8F73352B7CA010005B2737 /* LaunchScreen.storyboard */,
 				6E8F732C2B7CA00E005B2737 /* SceneDelegate.swift */,
+				6E44D5B52B7CA57700546F46 /* AppCoordinator.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -56,7 +73,7 @@
 		6E44D5AA2B7CA12800546F46 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				6E8F732E2B7CA00E005B2737 /* ViewController.swift */,
+				6E44D5B12B7CA54B00546F46 /* Home */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -64,6 +81,7 @@
 		6E44D5AB2B7CA12B00546F46 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				6E44D5BE2B7CE56F00546F46 /* TodoItem.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -81,6 +99,50 @@
 			children = (
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		6E44D5B12B7CA54B00546F46 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				6E44D5C52B7D7CC700546F46 /* Add */,
+				6E44D5C62B7D82FB00546F46 /* Custom */,
+				6E44D5C32B7D7BDC00546F46 /* Cell */,
+				6E44D5B42B7CA56E00546F46 /* Coordinator */,
+				6E44D5B22B7CA56700546F46 /* HomeViewController.swift */,
+				6E44D5BC2B7CB16C00546F46 /* HomeViewModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		6E44D5B42B7CA56E00546F46 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				6E44D5BA2B7CAA1B00546F46 /* HomeCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		6E44D5C32B7D7BDC00546F46 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				6E44D5C02B7D780C00546F46 /* TodoStateFilterCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		6E44D5C52B7D7CC700546F46 /* Add */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Add;
+			sourceTree = "<group>";
+		};
+		6E44D5C62B7D82FB00546F46 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				6E44D5C72B7D830300546F46 /* CardView.swift */,
+			);
+			path = Custom;
 			sourceTree = "<group>";
 		};
 		6E8F731E2B7CA00E005B2737 = {
@@ -129,6 +191,8 @@
 			);
 			name = "SeSAC-Mission-TODO";
 			packageProductDependencies = (
+				6E44D5AF2B7CA39D00546F46 /* KazUtility */,
+				6E44D5B82B7CA59D00546F46 /* SnapKit */,
 			);
 			productName = "SeSAC-Mission-TODO";
 			productReference = 6E8F73272B7CA00E005B2737 /* SeSAC-Mission-TODO.app */;
@@ -159,6 +223,8 @@
 			);
 			mainGroup = 6E8F731E2B7CA00E005B2737;
 			packageReferences = (
+				6E44D5AE2B7CA39D00546F46 /* XCRemoteSwiftPackageReference "KazUtility" */,
+				6E44D5B72B7CA59D00546F46 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 6E8F73282B7CA00E005B2737 /* Products */;
 			projectDirPath = "";
@@ -186,9 +252,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E8F732F2B7CA00E005B2737 /* ViewController.swift in Sources */,
+				6E44D5BF2B7CE56F00546F46 /* TodoItem.swift in Sources */,
+				6E44D5C82B7D830300546F46 /* CardView.swift in Sources */,
+				6E44D5B62B7CA57700546F46 /* AppCoordinator.swift in Sources */,
+				6E44D5BD2B7CB16C00546F46 /* HomeViewModel.swift in Sources */,
 				6E8F732B2B7CA00E005B2737 /* AppDelegate.swift in Sources */,
+				6E44D5BB2B7CAA1B00546F46 /* HomeCoordinator.swift in Sources */,
 				6E8F732D2B7CA00E005B2737 /* SceneDelegate.swift in Sources */,
+				6E44D5C12B7D780C00546F46 /* TodoStateFilterCollectionViewCell.swift in Sources */,
+				6E44D5B32B7CA56700546F46 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +481,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6E44D5AE2B7CA39D00546F46 /* XCRemoteSwiftPackageReference "KazUtility" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/wontaeyoung/KazUtility";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		6E44D5B72B7CA59D00546F46 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6E44D5AF2B7CA39D00546F46 /* KazUtility */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6E44D5AE2B7CA39D00546F46 /* XCRemoteSwiftPackageReference "KazUtility" */;
+			productName = KazUtility;
+		};
+		6E44D5B82B7CA59D00546F46 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6E44D5B72B7CA59D00546F46 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6E8F731F2B7CA00E005B2737 /* Project object */;
 }
