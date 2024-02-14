@@ -14,8 +14,14 @@ struct TodoItem: Entity {
   var title: String
   var memo: String
   var dueDate: Date
-  var state: TodoState
+  var tags: [String]
+  var states: [TodoState]
   var priority: TodoPriority
+  
+  var isToday: Bool {
+    return DateFormatManager.shared.toString(with: dueDate, format: .yyyyMMdd)
+    == DateFormatManager.shared.toString(with: Date.now, format: .yyyyMMdd)
+  }
 }
 
 enum TodoPriority: String {
