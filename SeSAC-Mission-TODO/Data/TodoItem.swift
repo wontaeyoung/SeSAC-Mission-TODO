@@ -7,7 +7,9 @@
 
 import UIKit
 import KazUtility
+import RealmSwift
 
+/*
 struct TodoItem: Entity {
   
   let id: UUID
@@ -41,6 +43,55 @@ struct TodoItem: Entity {
       imageData: nil,
       isDone: false
     )
+  }
+}
+ */
+
+final class TodoItem: Object {
+  
+  @Persisted(primaryKey: true) var id: ObjectId
+  @Persisted var title: String
+  @Persisted var memo: String
+  @Persisted var dueDate: Date
+  @Persisted var tags: List<String>
+  @Persisted var isFlag: Bool
+  @Persisted var priority: Int
+  @Persisted var imageData: Data?
+  @Persisted var isDone: Bool
+  
+  var isToday: Bool {
+    return DateFormatManager.shared.toString(with: dueDate, format: .yyyyMMdd)
+    == DateFormatManager.shared.toString(with: Date.now, format: .yyyyMMdd)
+  }
+  
+  var todoPriority: TodoPriority {
+    return TodoPriority(rawValue: priority) ?? .none
+  }
+  
+  convenience init(
+    title: String = "",
+    memo: String = "",
+    dueDate: Date = .now,
+    tags: List<String> = .init(),
+    isFlag: Bool = false,
+    priority: Int = 0,
+    imageData: Data? = nil,
+    isDone: Bool = false
+  ) {
+    self.init()
+    
+    self.title = title
+    self.memo = memo
+    self.dueDate = dueDate
+    self.tags = tags
+    self.isFlag = isFlag
+    self.priority = priority
+    self.imageData = imageData
+    self.isDone = isDone
+  }
+  
+  static var empty: TodoItem {
+    return TodoItem()
   }
 }
 
