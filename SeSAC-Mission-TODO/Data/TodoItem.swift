@@ -17,7 +17,7 @@ struct TodoItem: Entity {
   var tags: [String]
   var isFlag: Bool
   var priority: Int
-  var image: UIImage?
+  var imageData: Data?
   var isDone: Bool
   
   var isToday: Bool {
@@ -37,8 +37,8 @@ struct TodoItem: Entity {
       dueDate: .now,
       tags: [],
       isFlag: false,
-      priority: 3,
-      image: nil,
+      priority: 0,
+      imageData: nil,
       isDone: false
     )
   }
