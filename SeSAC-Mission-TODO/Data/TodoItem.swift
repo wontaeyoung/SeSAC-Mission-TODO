@@ -22,6 +22,18 @@ struct TodoItem: Entity {
     return DateFormatManager.shared.toString(with: dueDate, format: .yyyyMMdd)
     == DateFormatManager.shared.toString(with: Date.now, format: .yyyyMMdd)
   }
+  
+  static var empty: TodoItem {
+    return TodoItem(
+      id: UUID(),
+      title: "",
+      memo: "",
+      dueDate: .now,
+      tags: [],
+      states: [],
+      priority: .none
+    )
+  }
 }
 
 enum TodoPriority: String, CaseIterable {
