@@ -15,8 +15,10 @@ struct TodoItem: Entity {
   var memo: String
   var dueDate: Date
   var tags: [String]
-  var states: [TodoState]
-  var priority: TodoPriority
+  var isFlag: Bool
+  var priority: Int
+  var image: UIImage?
+  var isDone: Bool
   
   var isToday: Bool {
     return DateFormatManager.shared.toString(with: dueDate, format: .yyyyMMdd)
@@ -30,20 +32,35 @@ struct TodoItem: Entity {
       memo: "",
       dueDate: .now,
       tags: [],
-      states: [],
-      priority: .none
+      isFlag: false,
+      priority: 3,
+      image: nil,
+      isDone: false
     )
   }
 }
 
-enum TodoPriority: String, CaseIterable {
-  case high = "높음"
-  case middle = "중간"
-  case low = "낮음"
-  case none = "없음"
+enum TodoPriority: Int, CaseIterable {
+  
+  case none = 0
+  case low
+  case middle
+  case high
   
   var title: String {
-    return self.rawValue
+    switch self {
+      case .high:
+        return "높음"
+      
+      case .middle:
+        return "중간"
+        
+      case .low:
+        return "낮음"
+        
+      case .none:
+        return "없음"
+    }
   }
 }
 
