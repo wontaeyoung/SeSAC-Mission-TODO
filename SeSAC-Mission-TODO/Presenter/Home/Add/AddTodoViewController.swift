@@ -8,6 +8,7 @@
 import UIKit
 import KazUtility
 import SnapKit
+import RealmSwift
 
 enum TodoConfiguration: String, CaseIterable {
   
@@ -137,11 +138,10 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
       return
     }
     
-    var current = viewModel.todoItem.current
-    current.title = text
-    current.memo = memo
-    
-    viewModel.todoItem.set(current)
+    viewModel.todoItem.current.configure {
+      $0.title = text
+      $0.memo = memo
+    }
   }
 }
 
