@@ -112,6 +112,8 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
   
   @objc private func addBarButtonTapped() {
     
+    submitData()
+    
     NotificationManager.shared.post(
       key: TodoNotificationNameKey.todoItemAdded,
       with: [TodoNotificationInfo(key: .todoItem, value: viewModel.todoItem.current)]
@@ -126,6 +128,20 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
   
   private func updateAddButtonEnabled(isTitleEmpty: Bool) {
     navigationItem.rightBarButtonItem?.isEnabled = !isTitleEmpty
+  }
+  
+  private func submitData() {
+    guard let text = titleTextField.text,
+          let memo = memoTextView.text
+    else {
+      return
+    }
+    
+    var current = viewModel.todoItem.current
+    current.title = text
+    current.memo = memo
+    
+    viewModel.todoItem.set(current)
   }
 }
 
