@@ -120,12 +120,13 @@ enum TodoState: String, CaseIterable {
   }
   
   var config: UIButton.Configuration {
-    return UIButton.Configuration.filled().configured {
+    return .filled().configured {
       $0.image = UIImage(systemName: symbol)
       $0.baseForegroundColor = tintColor
       $0.baseBackgroundColor = backColor
       $0.cornerStyle = .capsule
-      $0.buttonSize = .mini
+      $0.buttonSize = .medium
+      $0.preferredSymbolConfigurationForImage = .init(pointSize: 10)
     }
   }
 }
