@@ -25,6 +25,10 @@ struct TodoItem: Entity {
     == DateFormatManager.shared.toString(with: Date.now, format: .yyyyMMdd)
   }
   
+  var todoPriority: TodoPriority {
+    return TodoPriority(rawValue: priority) ?? .none
+  }
+  
   static var empty: TodoItem {
     return TodoItem(
       id: UUID(),
