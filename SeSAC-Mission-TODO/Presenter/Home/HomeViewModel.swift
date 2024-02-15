@@ -19,8 +19,9 @@ final class HomeViewModel: ViewModel {
       memo: "메모 \(n)",
       dueDate: .init(timeIntervalSinceNow: 86400 * Double(n)),
       tags: [mockTags.randomElement()!],
-      states: [.allCases.randomElement()!],
-      priority: .allCases.randomElement()!
+      isFlag: .random(),
+      priority: TodoPriority.allCases.map { $0.rawValue }.randomElement()!,
+      isDone: .random()
     )
   }
   
@@ -30,6 +31,10 @@ final class HomeViewModel: ViewModel {
   // MARK: - Initializer
   init(coordinator: HomeCoordinator? = nil) {
     self.coordinator = coordinator
+    
+    NotificationManager.shared.add(self, key: TodoNotificationNameKey.todoItemAdded) { notification in
+      
+    }
   }
   
   // MARK: - Bindable
@@ -37,7 +42,20 @@ final class HomeViewModel: ViewModel {
   
   // MARK: - Method
   func filter(by state: TodoState) -> [TodoItem] {
-    return todoItems.current.filter { $0.states.contains(state) }
+    let current = todoItems.current
+    
+    switch state {
+      case .today:
+        return current.filter { $0.isToday }
+      case .plan:
+        return current.filter { !$0.isDone }
+      case .all:
+        return current
+      case .flag:
+        return current.filter { $0.isFlag }
+      case .done:
+        return current.filter { $0.isDone }
+    }
   }
   
   func filteredCount(by state: TodoState) -> Int {
