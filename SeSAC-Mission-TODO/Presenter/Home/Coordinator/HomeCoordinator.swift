@@ -40,6 +40,6 @@ extension HomeCoordinator {
       .navigationTitle(with: "새로운 할 일", displayMode: .never)
     let navigationController = UINavigationController(rootViewController: viewController)
     
-    self.present(navigationController)
+    self.present(navigationController, style: .fullScreen)
   }
 }
