@@ -33,7 +33,17 @@ final class HomeViewModel: ViewModel {
     self.coordinator = coordinator
     
     NotificationManager.shared.add(self, key: TodoNotificationNameKey.todoItemAdded) { notification in
+      guard
+        let info = notification.userInfo,
+        let data = info[TodoNotificationInfoKey.todoItem.name] as? TodoItem
+      else {
+        LogManager.shared.log(with: NotificationError.infoNotFound(key: TodoNotificationInfoKey.todoItem), to: .local)
+        return
+      }
       
+      var current = self.todoItems.current
+      current.append(data)
+      self.todoItems.set(current)
     }
   }
   
@@ -68,3 +78,18 @@ final class HomeViewModel: ViewModel {
   }
 }
 
+enum TodoNotificationNameKey: String, NotificationNameKey {
+  
+  case todoItemAdded = "TodoItemAdded"
+}
+
+enum TodoNotificationInfoKey: String, NotificationInfoKey {
+  
+  case todoItem
+}
+
+struct TodoNotificationInfo: NotificationInfo {
+  
+  var key: TodoNotificationInfoKey
+  var value: Any
+}
