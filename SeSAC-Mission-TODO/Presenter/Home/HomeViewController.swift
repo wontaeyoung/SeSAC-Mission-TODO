@@ -59,7 +59,7 @@ final class HomeViewController: BaseViewController, ViewModelController {
   
   // MARK: - Method
   @objc private func addTodoBarButtonTapped() {
-    
+    viewModel.showAddTodoView()
   }
   
   @objc private func addListBarButtonTapped() {

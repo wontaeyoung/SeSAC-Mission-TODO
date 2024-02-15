@@ -43,5 +43,10 @@ final class HomeViewModel: ViewModel {
   func filteredCount(by state: TodoState) -> Int {
     return filter(by: state).count
   }
+  
+  @MainActor
+  func showAddTodoView() {
+    coordinator?.showAddTodoView()
+  }
 }
 
