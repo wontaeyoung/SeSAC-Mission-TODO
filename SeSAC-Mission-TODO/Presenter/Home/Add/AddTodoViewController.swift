@@ -29,11 +29,17 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
   private lazy var titleTextField = UITextField().configured {
     $0.placeholder = "제목"
     $0.borderStyle = .none
+    $0.autocapitalizationType = .none
+    $0.autocorrectionType = .no
+    $0.spellCheckingType = .no
     $0.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
   }
   private let divider = Divider()
   private let memoTextView = UITextView().configured {
     $0.backgroundColor = .clear
+    $0.autocorrectionType = .no
+    $0.autocapitalizationType = .none
+    $0.spellCheckingType = .no
   }
   
   private lazy var configTableView = UITableView().configured {
