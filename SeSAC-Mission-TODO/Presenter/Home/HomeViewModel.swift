@@ -10,21 +10,6 @@ import KazUtility
 
 final class HomeViewModel: ViewModel {
   
-  // MARK: - Mock
-  static let mockTags: [String] = ["Tag 1", "Tag 2", "Tag3", "Tag4"]
-  static let mockData: [TodoItem] = (1...20).map { n in
-    return .init(
-      id: UUID(),
-      title: "Task \(n)",
-      memo: "메모 \(n)",
-      dueDate: .init(timeIntervalSinceNow: 86400 * Double(n)),
-      tags: [mockTags.randomElement()!],
-      isFlag: .random(),
-      priority: TodoPriority.allCases.map { $0.rawValue }.randomElement()!,
-      isDone: .random()
-    )
-  }
-  
   // MARK: - Property
   weak var coordinator: HomeCoordinator?
   
@@ -48,7 +33,7 @@ final class HomeViewModel: ViewModel {
   }
   
   // MARK: - Bindable
-  lazy var todoItems: Bindable<[TodoItem]> = .init(value: Self.mockData)
+  lazy var todoItems: Bindable<[TodoItem]> = .init(value: [])
   
   // MARK: - Method
   func filter(by state: TodoState) -> [TodoItem] {
