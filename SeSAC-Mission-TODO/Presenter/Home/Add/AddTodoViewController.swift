@@ -29,7 +29,7 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
   private lazy var titleTextField = UITextField().configured {
     $0.placeholder = "제목"
     $0.borderStyle = .none
-    $0.delegate = self
+    $0.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
   }
   private let divider = Divider()
   private let memoTextView = UITextView().configured {
@@ -105,7 +105,17 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
   }
   
   @objc private func addBarButtonTapped() {
+    
+    NotificationManager.shared.post(
+      key: TodoNotificationNameKey.todoItemAdded,
+      with: [TodoNotificationInfo(key: .todoItem, value: viewModel.todoItem.current)]
+    )
+    
     viewModel.dismiss()
+  }
+  
+  @objc private func textFieldDidChange(_ textField: UITextField) {
+    updateAddButtonEnabled(isTitleEmpty: textField.text?.isEmpty ?? true)
   }
   
   private func updateAddButtonEnabled(isTitleEmpty: Bool) {
@@ -129,16 +139,5 @@ extension AddTodoViewController: TableControllable {
     cell.updateUI(with: data, config: config)
     
     return cell
-  }
-}
-
-extension AddTodoViewController: UITextFieldDelegate {
-  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    if let isEmpty = textField.text?.isEmpty {
-      print(string)
-      updateAddButtonEnabled(isTitleEmpty: isEmpty)
-    }
-    
-    return true
   }
 }
