@@ -13,6 +13,7 @@ enum TodoConfiguration: String, CaseIterable {
   
   case dutDate = "마감일"
   case tag = "태그"
+  case flag = "깃발"
   case priority = "우선 순위"
   case addImage = "이미지 추가"
   
@@ -25,9 +26,10 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
   
   // MARK: - UI
   private let cardView = CardView()
-  private let titleTextField = UITextField().configured {
+  private lazy var titleTextField = UITextField().configured {
     $0.placeholder = "제목"
     $0.borderStyle = .none
+    $0.delegate = self
   }
   private let divider = Divider()
   private let memoTextView = UITextView().configured {
@@ -94,6 +96,8 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
     
     navigationItem.leftBarButtonItem = cancelBarButton
     navigationItem.rightBarButtonItem = addBarButton
+    
+    updateAddButtonEnabled(isTitleEmpty: titleTextField.text?.isEmpty ?? false )
   }
   
   @objc private func cancelBarButtonTapped() {
@@ -102,6 +106,10 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
   
   @objc private func addBarButtonTapped() {
     viewModel.dismiss()
+  }
+  
+  private func updateAddButtonEnabled(isTitleEmpty: Bool) {
+    navigationItem.rightBarButtonItem?.isEnabled = !isTitleEmpty
   }
 }
 
@@ -121,5 +129,16 @@ extension AddTodoViewController: TableControllable {
     cell.updateUI(with: data, config: config)
     
     return cell
+  }
+}
+
+extension AddTodoViewController: UITextFieldDelegate {
+  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    if let isEmpty = textField.text?.isEmpty {
+      print(string)
+      updateAddButtonEnabled(isTitleEmpty: isEmpty)
+    }
+    
+    return true
   }
 }
