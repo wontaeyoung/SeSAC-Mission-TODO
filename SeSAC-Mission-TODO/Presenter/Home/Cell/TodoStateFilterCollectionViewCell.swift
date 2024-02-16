@@ -51,7 +51,7 @@ final class TodoStateFilterCollectionViewCell: BaseCollectionViewCell {
   
   
   // MARK: - Method
-  func updateUI(with data: TodoState, count: Int) {
+  func updateUI(with data: TodoItem.State, count: Int) {
     iconButton.configuration = data.config
     countLabel.text = "\(count)"
     stateLabel.text = data.title

@@ -69,7 +69,7 @@ final class HomeViewController: BaseViewController, ViewModelController {
 
 extension HomeViewController: CollectionControllable {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return TodoState.allCases.count
+    return TodoItem.State.allCases.count
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -78,7 +78,7 @@ extension HomeViewController: CollectionControllable {
       for: indexPath
     ) as! TodoStateFilterCollectionViewCell
     
-    let data = TodoState.allCases[indexPath.row]
+    let data = TodoItem.State.allCases[indexPath.row]
     let count: Int = viewModel.filteredCount(by: data)
     cell.updateUI(with: data, count: count)
     

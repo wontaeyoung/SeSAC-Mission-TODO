@@ -36,7 +36,7 @@ final class HomeViewModel: ViewModel {
   lazy var todoItems: Bindable<[TodoItem]> = .init(value: [])
   
   // MARK: - Method
-  func filter(by state: TodoState) -> [TodoItem] {
+  func filter(by state: TodoItem.State) -> [TodoItem] {
     let current = todoItems.current
     
     switch state {
@@ -53,7 +53,7 @@ final class HomeViewModel: ViewModel {
     }
   }
   
-  func filteredCount(by state: TodoState) -> Int {
+  func filteredCount(by state: TodoItem.State) -> Int {
     return filter(by: state).count
   }
   
