@@ -6,16 +6,34 @@
 //
 
 import KazUtility
+import RealmSwift
 
-final class AddTodoViewModel: ViewModel {
+final class AddTodoViewModel: RealmObjectViewModel {
   
+  typealias ObjectType = TodoItem
+  
+  // MARK: - Property
   weak var coordinator: HomeCoordinator?
+  private let repository: TodoItemRepository
   
-  init(coordinator: HomeCoordinator? = nil) {
+  // MARK: - Model
+  var object: TodoItem
+  var bindAction: ((TodoItem) -> Void)?
+  var notificationToken: NotificationToken?
+  
+  // MARK: - Initializer
+  init(coordinator: HomeCoordinator? = nil, repository: TodoItemRepository) {
     self.coordinator = coordinator
+    self.repository = repository
+    self.object = .empty
   }
   
-  let todoItem: Bindable<TodoItem> = .init(value: .empty)
+  deinit {
+    notificationToken?.invalidate()
+  }
+}
+
+extension AddTodoViewModel {
   
   @MainActor
   func dismiss() {
