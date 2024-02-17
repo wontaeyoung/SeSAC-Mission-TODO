@@ -60,6 +60,6 @@ extension HomeViewModel {
   
   @MainActor
   func showAddTodoView() {
-    coordinator?.showAddTodoView()
+    coordinator?.combineAddTodoFlow()
   }
 }

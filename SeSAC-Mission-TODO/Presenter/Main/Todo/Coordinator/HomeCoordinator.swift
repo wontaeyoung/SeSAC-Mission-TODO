@@ -35,12 +35,10 @@ extension HomeCoordinator {
     self.push(viewController)
   }
   
-  func showAddTodoView() {
-    let viewModel = AddTodoViewModel(coordinator: self)
-    let viewController = AddTodoViewController(viewModel: viewModel)
-      .navigationTitle(with: "새로운 할 일", displayMode: .never)
-    let navigationController = UINavigationController(rootViewController: viewController)
+  func combineAddTodoFlow() {
+    let coordinator = AddTodoCoordinator(self.navigationController)
+    self.addChild(coordinator)
     
-    self.present(navigationController, style: .fullScreen)
+    coordinator.start()
   }
 }
