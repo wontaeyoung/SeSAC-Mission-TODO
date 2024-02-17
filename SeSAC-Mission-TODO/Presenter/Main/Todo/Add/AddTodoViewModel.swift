@@ -5,6 +5,7 @@
 //  Created by 원태영 on 2/15/24.
 //
 
+import Foundation
 import KazUtility
 import RealmSwift
 
@@ -13,7 +14,7 @@ final class AddTodoViewModel: RealmObjectViewModel {
   typealias ObjectType = TodoItem
   
   // MARK: - Property
-  weak var coordinator: HomeCoordinator?
+  weak var coordinator: AddTodoCoordinator?
   private let repository: TodoItemRepository
   
   // MARK: - Model
@@ -22,7 +23,7 @@ final class AddTodoViewModel: RealmObjectViewModel {
   var notificationToken: NotificationToken?
   
   // MARK: - Initializer
-  init(coordinator: HomeCoordinator? = nil, repository: TodoItemRepository) {
+  init(coordinator: AddTodoCoordinator? = nil, repository: TodoItemRepository) {
     self.coordinator = coordinator
     self.repository = repository
     self.object = .empty
@@ -64,5 +65,10 @@ extension AddTodoViewModel {
   @MainActor
   func dismiss() {
     coordinator?.dismiss()
+  }
+  
+  @MainActor
+  func showUpdateDueDateView(updateDateAction: @escaping (Date) -> Void) {
+    coordinator?.showUpdateDueDateView(updateDateAction: updateDateAction)
   }
 }
