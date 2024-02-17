@@ -8,6 +8,9 @@
 import KazUtility
 
 enum RealmError: AppError {
+  
+  static let contactDeveloperMessage: String = "문제가 지속되면 개발자에게 문의해주세요."
+  
   case getRealmFailed
   case observedChangeError(error: Error)
   
