@@ -114,11 +114,15 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
   @objc private func addBarButtonTapped() {
     
     submitData()
+    create()
     
+    /// Noficiation으로 데이터 보내기
+    /*
     NotificationManager.shared.post(
       key: TodoNotificationNameKey.todoItemAdded,
       with: [TodoNotificationInfo(key: .todoItem, value: viewModel.todoItem.current)]
     )
+     */
     
     viewModel.dismiss()
   }
@@ -161,5 +165,16 @@ extension AddTodoViewController: TableControllable {
     cell.updateUI(with: data, config: config)
     
     return cell
+  }
+}
+
+// MARK: - Realm
+extension AddTodoViewController {
+  func create() {
+    let realm = try! Realm()
+    
+    try! realm.write {
+      realm.add(viewModel.todoItem.current)
+    }
   }
 }

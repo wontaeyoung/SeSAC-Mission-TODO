@@ -7,49 +7,37 @@
 
 import Foundation
 import KazUtility
+import RealmSwift
 
 final class HomeViewModel: ViewModel {
   
   // MARK: - Property
   weak var coordinator: HomeCoordinator?
+  private let repository: any TodoItemRepository
   
   // MARK: - Initializer
-  init(coordinator: HomeCoordinator? = nil) {
+  init(coordinator: HomeCoordinator? = nil, repository: any TodoItemRepository) {
     self.coordinator = coordinator
-    
-    NotificationManager.shared.add(self, key: TodoNotificationNameKey.todoItemAdded) { notification in
-      guard
-        let info = notification.userInfo,
-        let data = info[TodoNotificationInfoKey.todoItem.name] as? TodoItem
-      else {
-        LogManager.shared.log(with: NotificationError.infoNotFound(key: TodoNotificationInfoKey.todoItem), to: .local)
-        return
-      }
-      
-      var current = self.todoItems.current
-      current.append(data)
-      self.todoItems.set(current)
-    }
+    self.repository = repository
+    self.todoItems = repository.fetch()
   }
   
   // MARK: - Bindable
-  lazy var todoItems: Bindable<[TodoItem]> = .init(value: [])
+  private var todoItems: Results<TodoItem>
   
   // MARK: - Method
   func filter(by state: TodoItem.State) -> [TodoItem] {
-    let current = todoItems.current
-    
     switch state {
       case .today:
-        return current.filter { $0.isToday }
+        return todoItems.filter { $0.isToday }
       case .plan:
-        return current.filter { !$0.isDone }
+        return todoItems.filter { !$0.isDone }
       case .all:
-        return current
+        return todoItems.map { $0 }
       case .flag:
-        return current.filter { $0.isFlag }
+        return todoItems.filter { $0.isFlag }
       case .done:
-        return current.filter { $0.isDone }
+        return todoItems.filter { $0.isDone }
     }
   }
   
