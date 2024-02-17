@@ -9,14 +9,16 @@ import Foundation
 import KazUtility
 import RealmSwift
 
-final class HomeViewModel: RealmViewModel {
+final class HomeViewModel: RealmCollectionViewmodel {
+  
+  typealias ObjectType = TodoItem
   
   // MARK: - Property
   weak var coordinator: HomeCoordinator?
   private let repository: any TodoItemRepository
   
   // MARK: - Model
-  var model: Results<TodoItem>
+  let collection: Results<TodoItem>
   var bindAction: ((Results<TodoItem>) -> Void)?
   var notificationToken: NotificationToken?
   
@@ -24,7 +26,7 @@ final class HomeViewModel: RealmViewModel {
   init(coordinator: HomeCoordinator? = nil, repository: any TodoItemRepository) {
     self.coordinator = coordinator
     self.repository = repository
-    self.model = repository.fetch()
+    self.collection = repository.fetch()
   }
   
   deinit {
@@ -37,15 +39,15 @@ extension HomeViewModel {
   func filter(by state: TodoItem.State) -> [TodoItem] {
     switch state {
       case .today:
-        return model.filter { $0.isToday }
+        return collection.filter { $0.isToday }
       case .plan:
-        return model.filter { !$0.isDone }
+        return collection.filter { !$0.isDone }
       case .all:
-        return model.map { $0 }
+        return collection.map { $0 }
       case .flag:
-        return model.filter { $0.isFlag }
+        return collection.filter { $0.isFlag }
       case .done:
-        return model.filter { $0.isDone }
+        return collection.filter { $0.isDone }
     }
   }
   
