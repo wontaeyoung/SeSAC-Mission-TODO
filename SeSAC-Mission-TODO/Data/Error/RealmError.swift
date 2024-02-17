@@ -13,6 +13,7 @@ enum RealmError: AppError {
   
   case getRealmFailed
   case observedChangeError(error: Error)
+  case addFailed(error: Error)
   
   var logDescription: String {
     switch self {
@@ -21,13 +22,19 @@ enum RealmError: AppError {
         
       case .observedChangeError(let error):
         return "감지된 변경사항에서 에러가 발생했습니다. \(error.localizedDescription)"
+        
+      case .addFailed(let error):
+        return "데이터 추가에 실패했습니다. \(error.localizedDescription)"
     }
   }
   
   var alertDescription: String {
     switch self {
       case .getRealmFailed, .observedChangeError:
-        return "정보를 가져오는데 실패했어요. 문제가 지속되면 개발자에게 문의해주세요."
+        return "정보를 가져오는데 실패했어요. \(RealmError.contactDeveloperMessage)"
+        
+      case .addFailed:
+        return "할 일을 추가하지 못했어요. \(RealmError.contactDeveloperMessage)"
     }
   }
 }
