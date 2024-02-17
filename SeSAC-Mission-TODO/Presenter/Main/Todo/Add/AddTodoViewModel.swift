@@ -31,6 +31,18 @@ final class AddTodoViewModel: RealmObjectViewModel {
   deinit {
     notificationToken?.invalidate()
   }
+  
+  // MARK: - Method
+  func add() {
+    do {
+      try repository.create(with: object)
+    } catch {
+      let realmError: RealmError = .addFailed(error: error)
+      LogManager.shared.log(with: realmError, to: .local)
+      Task { await coordinator?.handle(error: realmError) }
+    }
+  }
+}
 }
 
 extension AddTodoViewModel {
