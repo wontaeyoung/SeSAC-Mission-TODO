@@ -52,8 +52,10 @@ final class HomeViewController: BaseViewController, ViewModelController {
   }
   
   override func bind() {
-    viewModel.todoItems.subscribe { _ in
-      self.collectonView.reloadData()
+    viewModel.subscribe { [weak self] _ in
+      guard let self else { return }
+      
+      collectonView.reloadData()
     }
   }
   
