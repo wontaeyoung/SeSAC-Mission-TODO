@@ -43,6 +43,20 @@ final class AddTodoViewModel: RealmObjectViewModel {
     }
   }
 }
+
+extension AddTodoViewModel {
+  
+  func updateTitle(with title: String) {
+    object.title = title
+  }
+  
+  func updateMemo(with memo: String) {
+    object.memo = memo
+  }
+  
+  func updateDueDate(with date: Date) {
+    object.dueDate = date
+  }
 }
 
 extension AddTodoViewModel {
