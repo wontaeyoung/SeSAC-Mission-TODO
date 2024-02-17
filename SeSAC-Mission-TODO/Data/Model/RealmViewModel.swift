@@ -13,7 +13,7 @@ protocol RealmViewModel: ViewModel, AnyObject {
   associatedtype ObjectType: RealmModel
   
   var model: Results<ObjectType> { get }
-  var observe: ((Results<ObjectType>) -> Void)? { get set }
+  var bindAction: ((Results<ObjectType>) -> Void)? { get set }
   var notificationToken: NotificationToken? { get set }
   
   func observe(_ action: @escaping (Results<ObjectType>) -> Void)
@@ -22,13 +22,13 @@ protocol RealmViewModel: ViewModel, AnyObject {
 extension RealmViewModel {
   func observe(_ action: @escaping (Results<ObjectType>) -> Void) {
     action(model)
-    self.observe = action
     self.notificationToken = model.observe { [weak self] (changes: RealmCollectionChange) in
+    self.bindAction = action
       guard let self else { return }
       
       switch changes {
         case .initial, .update:
-          observe?(model)
+          bindAction?(model)
           
         case .error(let error):
           LogManager.shared.log(with: RealmError.observedChangeError(error: error), to: .local)

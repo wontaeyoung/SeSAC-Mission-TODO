@@ -17,7 +17,7 @@ final class HomeViewModel: RealmViewModel {
   
   // MARK: - Model
   var model: Results<TodoItem>
-  var observe: ((Results<TodoItem>) -> Void)?
+  var bindAction: ((Results<TodoItem>) -> Void)?
   var notificationToken: NotificationToken?
   
   // MARK: - Initializer
