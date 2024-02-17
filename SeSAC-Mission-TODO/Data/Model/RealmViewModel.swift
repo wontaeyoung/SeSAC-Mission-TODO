@@ -29,7 +29,7 @@ extension RealmObjectViewModel {
   func observe(_ action: @escaping (ObjectType) -> Void) {
     
     action(object)
-    self.bindAction = action
+    bindAction = action
     
     notificationToken = object.observe { [weak self] change in
       guard let self else { return }
@@ -38,7 +38,7 @@ extension RealmObjectViewModel {
         case .change(let newObject, _):
           guard let newObject = newObject as? ObjectType else { return }
           
-          action(newObject)
+          bindAction?(newObject)
           
         case .error(let error):
           LogManager.shared.log(with: RealmError.observedChangeError(error: error), to: .local)
@@ -73,7 +73,7 @@ extension RealmCollectionViewmodel {
   func observe(_ action: @escaping (Results<ObjectType>) -> Void) {
     
     action(collection)
-    self.bindAction = action
+    bindAction = action
     
     self.notificationToken = collection.observe { [weak self] changes in
       guard let self else { return }
