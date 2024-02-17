@@ -161,5 +161,3 @@ extension TodoItem {
     }
   }
 }
-
-
