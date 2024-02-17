@@ -53,6 +53,14 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
   // MARK: - Property
   let viewModel: AddTodoViewModel
   
+  private var titleText: String {
+    return titleTextField.text ?? ""
+  }
+  
+  private var memo: String {
+    return memoTextView.text ?? ""
+  }
+  
   // MARK: - Initialzier
   init(viewModel: AddTodoViewModel) {
     self.viewModel = viewModel
@@ -104,52 +112,33 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
     navigationItem.leftBarButtonItem = cancelBarButton
     navigationItem.rightBarButtonItem = addBarButton
     
-    updateAddButtonEnabled(isTitleEmpty: titleTextField.text?.isEmpty ?? false )
+    updateAddButtonEnabled(isTitleEmpty: titleText.isEmpty)
   }
   
+  
+  // MARK: - Selector
   @objc private func cancelBarButtonTapped() {
     viewModel.dismiss()
   }
   
   @objc private func addBarButtonTapped() {
-    
-    submitData()
-    create()
-    
-    /// Noficiation으로 데이터 보내기
-    /*
-    NotificationManager.shared.post(
-      key: TodoNotificationNameKey.todoItemAdded,
-      with: [TodoNotificationInfo(key: .todoItem, value: viewModel.todoItem.current)]
-    )
-     */
-    
+    viewModel.updateTitle(with: titleText)
+    viewModel.updateMemo(with: memo)
+    viewModel.add()
     viewModel.dismiss()
   }
   
-  @objc private func textFieldDidChange(_ textField: UITextField) {
-    updateAddButtonEnabled(isTitleEmpty: textField.text?.isEmpty ?? true)
+  @objc private func textFieldDidChange() {
+    updateAddButtonEnabled(isTitleEmpty: titleText.isEmpty)
   }
   
   private func updateAddButtonEnabled(isTitleEmpty: Bool) {
     navigationItem.rightBarButtonItem?.isEnabled = !isTitleEmpty
   }
-  
-  private func submitData() {
-    guard let text = titleTextField.text,
-          let memo = memoTextView.text
-    else {
-      return
-    }
-    
-    viewModel.todoItem.current.configure {
-      $0.title = text
-      $0.memo = memo
-    }
-  }
 }
 
 extension AddTodoViewController: TableControllable {
+  
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return TodoConfiguration.allCases.count
   }
@@ -160,21 +149,26 @@ extension AddTodoViewController: TableControllable {
       for: indexPath
     ) as! TodoConfigTableViewCell
     
-    let data = viewModel.todoItem.current
+    let data = viewModel.object
     let config = TodoConfiguration.allCases[indexPath.row]
     cell.updateUI(with: data, config: config)
     
     return cell
   }
-}
-
-// MARK: - Realm
-extension AddTodoViewController {
-  func create() {
-    let realm = try! Realm()
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let config = TodoConfiguration.allCases[indexPath.row]
     
-    try! realm.write {
-      realm.add(viewModel.todoItem.current)
+    switch config {
+      case .dutDate:
+        viewModel.showUpdateDueDateView { [weak self] date in
+          guard let self else { return }
+          
+          viewModel.updateDueDate(with: date)
+        }
+        
+      default:
+        break
     }
   }
 }
