@@ -16,11 +16,11 @@ protocol RealmViewModel: ViewModel, AnyObject {
   var observe: ((Results<ObjectType>) -> Void)? { get set }
   var notificationToken: NotificationToken? { get set }
   
-  func subscribe(_ action: @escaping (Results<ObjectType>) -> Void)
+  func observe(_ action: @escaping (Results<ObjectType>) -> Void)
 }
 
 extension RealmViewModel {
-  func subscribe(_ action: @escaping (Results<ObjectType>) -> Void) {
+  func observe(_ action: @escaping (Results<ObjectType>) -> Void) {
     action(model)
     self.observe = action
     self.notificationToken = model.observe { [weak self] (changes: RealmCollectionChange) in

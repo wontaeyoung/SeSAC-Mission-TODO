@@ -52,7 +52,7 @@ final class HomeViewController: BaseViewController, ViewModelController {
   }
   
   override func bind() {
-    viewModel.subscribe { [weak self] _ in
+    viewModel.observe { [weak self] _ in
       guard let self else { return }
       
       collectonView.reloadData()
