@@ -27,7 +27,8 @@ final class HomeCoordinator: Coordinator {
 extension HomeCoordinator {
   
   func showHomeView() {
-    let viewModel = HomeViewModel(coordinator: self)
+    let repository = LiveTodoItemRepository()
+    let viewModel = HomeViewModel(coordinator: self, repository: repository)
     let viewController = HomeViewController(viewModel: viewModel)
       .navigationTitle(with: "전체", displayMode: .always)
     
