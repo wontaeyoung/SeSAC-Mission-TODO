@@ -5,7 +5,9 @@
 //  Created by 원태영 on 2/17/24.
 //
 
-protocol RealmModel {
+import RealmSwift
+
+protocol RealmModel: Object {
   
   associatedtype Column: RawRepresentable where Column.RawValue == String
 }
