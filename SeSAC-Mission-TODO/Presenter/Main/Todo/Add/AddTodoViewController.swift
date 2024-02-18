@@ -13,23 +13,20 @@ import RealmSwift
 enum TodoConfiguration: Int, CaseIterable {
   
   case dutDate
-  case tag
   case flag
+  case tag
   case priority
-  case addImage
   
   var title: String {
     switch self {
       case .dutDate:
         return "마감일"
-      case .tag:
-        return "태그"
       case .flag:
         return "깃발"
+      case .tag:
+        return "태그"
       case .priority:
         return "우선 순위"
-      case .addImage:
-        return "이미지 추가"
     }
   }
   
