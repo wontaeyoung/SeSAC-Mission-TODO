@@ -58,6 +58,10 @@ extension AddTodoViewModel {
   func updateDueDate(with date: Date) {
     object.dueDate = date
   }
+  
+  func updateFlag(with isFlag: Bool) {
+    object.isFlag = isFlag
+  }
 }
 
 extension AddTodoViewModel {
