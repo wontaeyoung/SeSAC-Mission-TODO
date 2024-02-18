@@ -189,7 +189,11 @@ final class UpdateTagViewController: BaseViewController {
 extension UpdateTagViewController: UITextFieldDelegate {
   
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    return tagTitleLength < maxTagTitleLength
+    guard range.length > 0 else {
+      return tagTitleLength < maxTagTitleLength
+    }
+    
+    return tagTitleLength <= maxTagTitleLength
   }
 }
 
