@@ -81,6 +81,18 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
     self.viewModel = viewModel
     
     super.init()
+    
+    NotificationManager.shared.add(self, key: TodoNotification.NameKey.updateFlag) { [weak self] notification in
+      guard let self else { return }
+      guard let flag = notification.userInfo?[TodoNotification.InfoKey.flag.name] as? Bool else { return }
+      
+      viewModel.updateFlag(with: flag)
+      reloadConfig(with: .flag)
+    }
+  }
+  
+  deinit {
+    NotificationManager.shared.remove(self)
   }
   
   // MARK: - Life Cycle
@@ -172,6 +184,7 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
   }
 }
 
+// MARK: - Table Delegate
 extension AddTodoViewController: TableControllable {
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -194,5 +207,23 @@ extension AddTodoViewController: TableControllable {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let config = TodoConfiguration.allCases[indexPath.row]
     showUpdateConfigView(with: config)
+  }
+}
+
+// MARK: - NotificationCenter
+struct TodoNotification {
+  private init() { }
+  
+  enum NameKey: String, NotificationNameKey {
+    case updateFlag
+  }
+  
+  enum InfoKey: String, NotificationInfoKey {
+    case flag
+  }
+  
+  struct Info: NotificationInfo {
+    var key: InfoKey
+    var value: Any
   }
 }
