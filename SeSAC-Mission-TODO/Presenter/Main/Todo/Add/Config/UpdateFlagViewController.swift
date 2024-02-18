@@ -30,7 +30,7 @@ final class UpdateFlagViewController: BaseViewController {
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     
-    NotificationManager.shared.post(key: TodoNotification.NameKey.updateFlag, with: [
+    NotificationManager.shared.post(key: TodoNotification.NameKey.updateConfig, with: [
       TodoNotification.Info(key: .flag, value: toggleSwitch.isOn)
     ])
   }
