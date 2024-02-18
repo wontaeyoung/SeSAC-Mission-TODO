@@ -79,12 +79,18 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
     
     super.init()
     
-    NotificationManager.shared.add(self, key: TodoNotification.NameKey.updateFlag) { [weak self] notification in
+    NotificationManager.shared.add(self, key: TodoNotification.NameKey.updateConfig) { [weak self] notification in
       guard let self else { return }
-      guard let flag = notification.userInfo?[TodoNotification.InfoKey.flag.name] as? Bool else { return }
       
-      viewModel.updateFlag(with: flag)
-      reloadConfig(with: .flag)
+      if let flag = notification.userInfo?[TodoNotification.InfoKey.flag.name] as? Bool {
+        viewModel.updateFlag(with: flag)
+        reloadConfig(with: .flag)
+      }
+      
+      if let priority = notification.userInfo?[TodoNotification.InfoKey.priority.name] as? Int {
+        viewModel.updatePriority(with: priority)
+        reloadConfig(with: .priority)
+      }
     }
   }
   
@@ -212,11 +218,12 @@ struct TodoNotification {
   private init() { }
   
   enum NameKey: String, NotificationNameKey {
-    case updateFlag
+    case updateConfig
   }
   
   enum InfoKey: String, NotificationInfoKey {
     case flag
+    case priority
   }
   
   struct Info: NotificationInfo {
