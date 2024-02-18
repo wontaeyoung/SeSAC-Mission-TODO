@@ -13,7 +13,18 @@ final class UpdateDueDateViewController: BaseViewController {
   // MARK: - UI
   private let datePicker = UIDatePicker().configured {
     $0.datePickerMode = .date
-    $0.preferredDatePickerStyle = .automatic
+    $0.preferredDatePickerStyle = .inline
+    $0.locale = .kr
+  }
+  
+  private lazy var todayButton = UIButton().configured { button in
+    button.configuration = .filled().configured {
+      $0.title = "오늘로 설정"
+      $0.cornerStyle = .medium
+      $0.buttonSize = .medium
+    }
+    
+    button.addTarget(self, action: #selector(todayButtonTapped), for: .touchUpInside)
   }
   
   // MARK: - Property
@@ -35,12 +46,22 @@ final class UpdateDueDateViewController: BaseViewController {
   }
   
   override func setHierarchy() {
-    view.addSubview(datePicker)
+    view.addSubviews(datePicker, todayButton)
   }
   
   override func setConstraint() {
     datePicker.snp.makeConstraints { make in
-      make.edges.equalTo(view.safeAreaLayoutGuide)
+      make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
     }
+    
+    todayButton.snp.makeConstraints { make in
+      make.top.equalTo(datePicker.snp.bottom).offset(8)
+      make.trailing.equalTo(view).inset(16)
+    }
+  }
+  
+  // MARK: - Selector
+  @objc private func todayButtonTapped() {
+    datePicker.setDate(.now, animated: true)
   }
 }
