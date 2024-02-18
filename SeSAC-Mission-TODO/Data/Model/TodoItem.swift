@@ -31,7 +31,7 @@ final class TodoItem: Object, RealmModel {
   @Persisted var title: String
   @Persisted var memo: String
   @Persisted var dueDate: Date
-  @Persisted var tags: List<String>
+  @Persisted var tags: List<TodoTag>
   @Persisted var isFlag: Bool
   @Persisted var priority: Int
   @Persisted var imageData: Data?
