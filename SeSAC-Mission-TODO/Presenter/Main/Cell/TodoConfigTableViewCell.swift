@@ -58,7 +58,9 @@ final class TodoConfigTableViewCell: BaseTableViewCell {
         contentLabel.text = data.isFlag ? "On" : "Off"
         
       case .tag:
-        contentLabel.text = data.tags.joined(separator: ", ")
+        contentLabel.text = data.tags
+          .map { "#" + $0.name }
+          .joined(separator: " ")
       
       case .priority:
         contentLabel.text = data.todoPriority.title
