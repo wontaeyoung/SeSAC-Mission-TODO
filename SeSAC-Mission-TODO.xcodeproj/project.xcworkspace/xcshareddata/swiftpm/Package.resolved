@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/wontaeyoung/KazUtility",
       "state" : {
-        "revision" : "1b9a91b8e8e9fe61d5bb4b7982f0b10718cb5e9c",
-        "version" : "1.0.9"
+        "revision" : "ec854baf28d3a985d85822b70f33a6224de5c60d",
+        "version" : "1.0.10"
       }
     },
     {
