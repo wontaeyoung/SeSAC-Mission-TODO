@@ -238,18 +238,11 @@ struct TodoNotification {
 
 // MARK: - Value Transfer Delegate
 protocol UpdateConfigDelegate {
-  func tagsDidUpdate(_ tags: [String])
-  func priorityDidUpdate(_ priority: Int)
+  func tagsDidUpdate()
 }
 
 extension AddTodoViewController: UpdateConfigDelegate {
-  func tagsDidUpdate(_ tags: [String]) {
-    viewModel.updateTags(with: tags)
+  func tagsDidUpdate() {
     reloadConfig(with: .tag)
-  }
-  
-  func priorityDidUpdate(_ priority: Int) {
-    viewModel.updatePriority(with: priority)
-    reloadConfig(with: .priority)
   }
 }
