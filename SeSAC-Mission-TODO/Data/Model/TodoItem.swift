@@ -96,6 +96,10 @@ extension TodoItem {
           return "없음"
       }
     }
+    
+    var index: Int {
+      return self.rawValue
+    }
   }
 
 
