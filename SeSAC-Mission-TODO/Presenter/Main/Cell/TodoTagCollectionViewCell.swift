@@ -12,12 +12,12 @@ import SnapKit
 final class TodoTagCollectionViewCell: BaseCollectionViewCell {
   
   // MARK: - UI
-  private let tagButton = UIButton().configured { button in
-    button.configuration = .filled().configured {
-      $0.buttonSize = .mini
-      $0.cornerStyle = .medium
-    }
+  private lazy var tagButton = UIButton().configured {
+    $0.addTarget(self, action: #selector(tagButtonTapped), for: .touchUpInside)
   }
+  
+  // MARK: - Property
+  var updateTagAction: (() -> Void)?
   
   // MARK: - Life Cycle
   override func setHierarchy() {
@@ -31,8 +31,20 @@ final class TodoTagCollectionViewCell: BaseCollectionViewCell {
   }
   
   // MARK: - Method
-  func updateUI(with data: String) {
-    tagButton.configuration?.title = "#\(data)"
+  func updateUI(with data: String, isTagging: Bool, row: Int) {
+    let config: UIButton.Configuration = isTagging ? .filled() : .gray()
+    
+    tagButton.configuration = config.configured {
+      $0.title = "#\(data)"
+      $0.buttonSize = .small
+      $0.cornerStyle = .small
+    }
+    
+    tagButton.tag = row
+  }
+  
+  // MARK: - Selector
+  @objc private func tagButtonTapped() {
+    updateTagAction?()
   }
 }
-
