@@ -13,6 +13,7 @@ final class AddTodoCoordinator: Coordinator {
   weak var delegate: CoordinatorDelegate?
   var navigationController: UINavigationController
   var childCoordinators: [Coordinator]
+  var modalNavigationController: UINavigationController?
   
   init(_ navigationController: UINavigationController) {
     self.navigationController = navigationController
@@ -31,15 +32,19 @@ extension AddTodoCoordinator {
     let viewModel = AddTodoViewModel(coordinator: self, repository: repository)
     let viewController = AddTodoViewController(viewModel: viewModel)
       .navigationTitle(with: "새로운 할 일", displayMode: .never)
-    let navigationController = UINavigationController(rootViewController: viewController)
+      .hideBackTitle()
     
-    present(navigationController, style: .fullScreen)
+    self.modalNavigationController = UINavigationController(rootViewController: viewController)
+    
+    guard let modalNavigationController else { return }
+    present(modalNavigationController)
   }
   
   func showUpdateDueDateView(updateDateAction: @escaping (Date) -> Void) {
     let viewController = UpdateDueDateViewController(updateDateAction: updateDateAction)
       .navigationTitle(with: "마감일", displayMode: .never)
     
-    push(viewController)
+    guard let modalNavigationController else { return }
+    modalNavigationController.pushViewController(viewController, animated: true)
   }
 }
