@@ -50,7 +50,7 @@ final class TodoItem: Object, RealmModel {
     title: String = "",
     memo: String = "",
     dueDate: Date = .now,
-    tags: List<String> = .init(),
+    tags: List<TodoTag> = .init(),
     isFlag: Bool = false,
     priority: Int = 0,
     imageData: Data? = nil,
