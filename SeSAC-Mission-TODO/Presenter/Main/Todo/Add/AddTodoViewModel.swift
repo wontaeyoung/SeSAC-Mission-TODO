@@ -68,7 +68,7 @@ extension AddTodoViewModel {
   }
   
   @MainActor
-  func showUpdateDueDateView(updateDateAction: @escaping (Date) -> Void) {
-    coordinator?.showUpdateDueDateView(updateDateAction: updateDateAction)
+  func showUpdateDueDateView(current: Date, updateDateAction: @escaping (Date) -> Void) {
+    coordinator?.showUpdateDueDateView(current: current, updateDateAction: updateDateAction)
   }
 }

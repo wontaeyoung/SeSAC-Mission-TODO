@@ -119,12 +119,6 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
     }
   }
   
-  override func bind() {
-    viewModel.object.subscribe { _ in
-      self.configTableView.reloadData()
-    }
-  }
-  
   // MARK: - Method
   private func setNavigationItems() {
     let cancelBarButton = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(cancelBarButtonTapped))
@@ -159,7 +153,7 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
   private func showUpdateConfigView(with config: TodoConfiguration) {
     switch config {
       case .dutDate:
-        viewModel.showUpdateDueDateView { [weak self] date in
+        viewModel.showUpdateDueDateView(current: viewModel.object.dueDate) { [weak self] date in
           guard let self else { return }
           
           viewModel.updateDueDate(with: date)
@@ -184,7 +178,7 @@ extension AddTodoViewController: TableControllable {
       for: indexPath
     ) as! TodoConfigTableViewCell
     
-    let data = viewModel.object.current
+    let data = viewModel.object
     let config = TodoConfiguration.allCases[indexPath.row]
     cell.updateUI(with: data, config: config)
     

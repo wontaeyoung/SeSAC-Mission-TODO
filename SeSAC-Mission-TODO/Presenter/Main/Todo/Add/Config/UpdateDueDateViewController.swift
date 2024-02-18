@@ -20,7 +20,8 @@ final class UpdateDueDateViewController: BaseViewController {
   var updateDueDateAction: (Date) -> Void
   
   // MARK: - Initializer
-  init(updateDateAction: @escaping (Date) -> Void) {
+  init(current: Date, updateDateAction: @escaping (Date) -> Void) {
+    self.datePicker.setDate(current, animated: true)
     self.updateDueDateAction = updateDateAction
     
     super.init()

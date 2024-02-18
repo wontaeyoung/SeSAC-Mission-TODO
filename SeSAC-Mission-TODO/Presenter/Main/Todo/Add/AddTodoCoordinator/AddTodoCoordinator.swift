@@ -40,8 +40,8 @@ extension AddTodoCoordinator {
     present(modalNavigationController)
   }
   
-  func showUpdateDueDateView(updateDateAction: @escaping (Date) -> Void) {
-    let viewController = UpdateDueDateViewController(updateDateAction: updateDateAction)
+  func showUpdateDueDateView(current: Date, updateDateAction: @escaping (Date) -> Void) {
+    let viewController = UpdateDueDateViewController(current: current, updateDateAction: updateDateAction)
       .navigationTitle(with: "마감일", displayMode: .never)
     
     guard let modalNavigationController else { return }
