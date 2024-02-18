@@ -38,9 +38,11 @@ final class TodoConfigTableViewCell: BaseTableViewCell {
     titleLabel.snp.makeConstraints { make in
       make.leading.equalTo(contentView).inset(8)
       make.centerY.equalTo(contentView)
+      make.width.equalTo(100)
     }
     
     contentLabel.snp.makeConstraints { make in
+      make.leading.equalTo(titleLabel.snp.trailing).offset(8)
       make.trailing.equalTo(contentView).inset(8)
       make.centerY.equalTo(contentView)
     }
