@@ -63,10 +63,6 @@ extension AddTodoViewModel {
     object.isFlag = isFlag
   }
   
-  func updateTags(with tags: [String]) {
-    object.tags = .from(array: tags)
-  }
-  
   func updatePriority(with priority: Int) {
     object.priority = priority
   }
@@ -87,5 +83,15 @@ extension AddTodoViewModel {
   @MainActor
   func showUpdateFlagView(current isOn: Bool, config: TodoConfiguration) {
     coordinator?.showUpdateFlagView(current: isOn, config: config)
+  }
+  
+  @MainActor
+  func showUpdateTagView(config: TodoConfiguration, tags: List<TodoTag>, delegate: any UpdateConfigDelegate) {
+    coordinator?.showUpdateTagView(config: config, tags: tags, delegate: delegate)
+  }
+  
+  @MainActor
+  func showUpdatePriorityView(current priority: Int, config: TodoConfiguration) {
+    coordinator?.showUpdatePriorityView(current: priority, config: config)
   }
 }
