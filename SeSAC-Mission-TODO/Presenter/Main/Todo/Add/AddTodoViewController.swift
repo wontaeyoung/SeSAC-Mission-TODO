@@ -10,15 +10,30 @@ import KazUtility
 import SnapKit
 import RealmSwift
 
-enum TodoConfiguration: String, CaseIterable {
+enum TodoConfiguration: Int, CaseIterable {
   
-  case dutDate = "마감일"
-  case tag = "태그"
-  case flag = "깃발"
-  case priority = "우선 순위"
-  case addImage = "이미지 추가"
+  case dutDate
+  case tag
+  case flag
+  case priority
+  case addImage
   
   var title: String {
+    switch self {
+      case .dutDate:
+        return "마감일"
+      case .tag:
+        return "태그"
+      case .flag:
+        return "깃발"
+      case .priority:
+        return "우선 순위"
+      case .addImage:
+        return "이미지 추가"
+    }
+  }
+  
+  var row: Int {
     return self.rawValue
   }
 }
@@ -104,6 +119,12 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
     }
   }
   
+  override func bind() {
+    viewModel.object.subscribe { _ in
+      self.configTableView.reloadData()
+    }
+  }
+  
   // MARK: - Method
   private func setNavigationItems() {
     let cancelBarButton = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(cancelBarButtonTapped))
@@ -114,7 +135,6 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
     
     updateAddButtonEnabled(isTitleEmpty: titleText.isEmpty)
   }
-  
   
   // MARK: - Selector
   @objc private func cancelBarButtonTapped() {
@@ -135,6 +155,21 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
   private func updateAddButtonEnabled(isTitleEmpty: Bool) {
     navigationItem.rightBarButtonItem?.isEnabled = !isTitleEmpty
   }
+  
+  private func showUpdateConfigView(with config: TodoConfiguration) {
+    switch config {
+      case .dutDate:
+        viewModel.showUpdateDueDateView { [weak self] date in
+          guard let self else { return }
+          
+          viewModel.updateDueDate(with: date)
+          reloadConfig(with: config)
+        }
+        
+      default:
+        break
+    }
+  }
 }
 
 extension AddTodoViewController: TableControllable {
@@ -149,7 +184,7 @@ extension AddTodoViewController: TableControllable {
       for: indexPath
     ) as! TodoConfigTableViewCell
     
-    let data = viewModel.object
+    let data = viewModel.object.current
     let config = TodoConfiguration.allCases[indexPath.row]
     cell.updateUI(with: data, config: config)
     
@@ -158,17 +193,10 @@ extension AddTodoViewController: TableControllable {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let config = TodoConfiguration.allCases[indexPath.row]
-    
-    switch config {
-      case .dutDate:
-        viewModel.showUpdateDueDateView { [weak self] date in
-          guard let self else { return }
-          
-          viewModel.updateDueDate(with: date)
-        }
-        
-      default:
-        break
-    }
+    showUpdateConfigView(with: config)
+  }
+  
+  private func reloadConfig(with config: TodoConfiguration) {
+    configTableView.reloadRow(row: config.row)
   }
 }
