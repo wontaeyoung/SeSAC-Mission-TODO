@@ -50,8 +50,8 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
   private let divider = Divider()
   private let memoTextView = UITextView().configured {
     $0.backgroundColor = .clear
-    $0.autocorrectionType = .no
     $0.autocapitalizationType = .none
+    $0.autocorrectionType = .no
     $0.spellCheckingType = .no
   }
   
@@ -60,6 +60,7 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
     $0.register(TodoConfigTableViewCell.self, forCellReuseIdentifier: TodoConfigTableViewCell.identifier)
     $0.delegate = self
     $0.dataSource = self
+    $0.isScrollEnabled = false
   }
   
   // MARK: - Property
