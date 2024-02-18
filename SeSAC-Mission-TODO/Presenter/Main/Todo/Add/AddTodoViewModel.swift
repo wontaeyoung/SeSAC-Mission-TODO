@@ -62,6 +62,14 @@ extension AddTodoViewModel {
   func updateFlag(with isFlag: Bool) {
     object.isFlag = isFlag
   }
+  
+  func updateTags(with tags: [String]) {
+    object.tags = .from(array: tags)
+  }
+  
+  func updatePriority(with priority: Int) {
+    object.priority = priority
+  }
 }
 
 extension AddTodoViewModel {
