@@ -137,13 +137,15 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
   private func showUpdateConfigView(with config: TodoConfiguration) {
     switch config {
       case .dutDate:
-        viewModel.showUpdateDueDateView(current: viewModel.object.dueDate) { [weak self] date in
+        viewModel.showUpdateDueDateView(current: viewModel.object.dueDate, config: config) { [weak self] date in
           guard let self else { return }
           
           viewModel.updateDueDate(with: date)
           reloadConfig(with: config)
         }
         
+      case .flag:
+        viewModel.showUpdateFlagView(current: viewModel.object.isFlag, config: config)
       default:
         break
     }

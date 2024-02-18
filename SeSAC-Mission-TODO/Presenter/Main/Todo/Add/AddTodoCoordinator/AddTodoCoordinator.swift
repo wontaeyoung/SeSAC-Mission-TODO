@@ -37,12 +37,20 @@ extension AddTodoCoordinator {
     self.modalNavigationController = UINavigationController(rootViewController: viewController)
     
     guard let modalNavigationController else { return }
-    present(modalNavigationController)
+    present(modalNavigationController, style: .fullScreen)
   }
   
-  func showUpdateDueDateView(current: Date, updateDateAction: @escaping (Date) -> Void) {
-    let viewController = UpdateDueDateViewController(current: current, updateDateAction: updateDateAction)
-      .navigationTitle(with: "마감일", displayMode: .never)
+  func showUpdateDueDateView(current date: Date, config: TodoConfiguration, updateDateAction: @escaping (Date) -> Void) {
+    let viewController = UpdateDueDateViewController(current: date, updateDateAction: updateDateAction)
+      .navigationTitle(with: config.title, displayMode: .never)
+    
+    guard let modalNavigationController else { return }
+    modalNavigationController.pushViewController(viewController, animated: true)
+  }
+  
+  func showUpdateFlagView(current isOn: Bool, config: TodoConfiguration) {
+    let viewController = UpdateFlagViewController(current: isOn)
+      .navigationTitle(with: config.title, displayMode: .never)
     
     guard let modalNavigationController else { return }
     modalNavigationController.pushViewController(viewController, animated: true)

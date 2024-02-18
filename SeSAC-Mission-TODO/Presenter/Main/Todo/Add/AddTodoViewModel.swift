@@ -68,7 +68,12 @@ extension AddTodoViewModel {
   }
   
   @MainActor
-  func showUpdateDueDateView(current: Date, updateDateAction: @escaping (Date) -> Void) {
-    coordinator?.showUpdateDueDateView(current: current, updateDateAction: updateDateAction)
+  func showUpdateDueDateView(current date: Date, config: TodoConfiguration, updateDateAction: @escaping (Date) -> Void) {
+    coordinator?.showUpdateDueDateView(current: date, config: config, updateDateAction: updateDateAction)
+  }
+  
+  @MainActor
+  func showUpdateFlagView(current isOn: Bool, config: TodoConfiguration) {
+    coordinator?.showUpdateFlagView(current: isOn, config: config)
   }
 }
