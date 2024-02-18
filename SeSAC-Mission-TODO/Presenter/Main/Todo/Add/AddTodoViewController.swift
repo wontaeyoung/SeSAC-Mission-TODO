@@ -149,6 +149,10 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
     }
   }
   
+  private func reloadConfig(with config: TodoConfiguration) {
+    configTableView.reloadRow(row: config.row)
+  }
+  
   // MARK: - Selector
   @objc private func cancelBarButtonTapped() {
     viewModel.dismiss()
@@ -188,9 +192,5 @@ extension AddTodoViewController: TableControllable {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let config = TodoConfiguration.allCases[indexPath.row]
     showUpdateConfigView(with: config)
-  }
-  
-  private func reloadConfig(with config: TodoConfiguration) {
-    configTableView.reloadRow(row: config.row)
   }
 }
