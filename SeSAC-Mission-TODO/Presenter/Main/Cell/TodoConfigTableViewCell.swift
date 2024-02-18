@@ -13,7 +13,7 @@ final class TodoConfigTableViewCell: BaseTableViewCell {
   
   // MARK: - UI
   private let titleLabel = UILabel().configured {
-    $0.font = .systemFont(ofSize: 17, weight: .regular)
+    $0.font = .systemFont(ofSize: 17, weight: .bold)
   }
   private let contentLabel = UILabel().configured {
     $0.font = .systemFont(ofSize: 13, weight: .semibold)
@@ -54,17 +54,14 @@ final class TodoConfigTableViewCell: BaseTableViewCell {
       case .dutDate:
         contentLabel.text = DateFormatManager.shared.toString(with: data.dueDate, formatString: "yyyy-MM-dd")
       
+      case .flag:
+        contentLabel.text = data.isFlag ? "On" : "Off"
+        
       case .tag:
         contentLabel.text = data.tags.joined(separator: ", ")
       
-      case .flag:
-        contentLabel.text = data.isFlag ? "On" : "Off"
-      
       case .priority:
         contentLabel.text = data.todoPriority.title
-      
-      case .addImage:
-        contentLabel.text = ""
     }
   }
 }
