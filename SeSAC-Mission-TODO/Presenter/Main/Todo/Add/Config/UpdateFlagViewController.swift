@@ -27,6 +27,14 @@ final class UpdateFlagViewController: BaseViewController {
   }
   
   // MARK: - Life Cycle
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    
+    NotificationManager.shared.post(key: TodoNotification.NameKey.updateFlag, with: [
+      TodoNotification.Info(key: .flag, value: toggleSwitch.isOn)
+    ])
+  }
+  
   override func setHierarchy() {
     view.addSubviews(flagLabel, toggleSwitch)
   }
