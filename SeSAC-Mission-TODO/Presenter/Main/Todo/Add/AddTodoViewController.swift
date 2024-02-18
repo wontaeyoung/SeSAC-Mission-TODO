@@ -130,22 +130,6 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
     updateAddButtonEnabled(isTitleEmpty: titleText.isEmpty)
   }
   
-  // MARK: - Selector
-  @objc private func cancelBarButtonTapped() {
-    viewModel.dismiss()
-  }
-  
-  @objc private func addBarButtonTapped() {
-    viewModel.updateTitle(with: titleText)
-    viewModel.updateMemo(with: memo)
-    viewModel.add()
-    viewModel.dismiss()
-  }
-  
-  @objc private func textFieldDidChange() {
-    updateAddButtonEnabled(isTitleEmpty: titleText.isEmpty)
-  }
-  
   private func updateAddButtonEnabled(isTitleEmpty: Bool) {
     navigationItem.rightBarButtonItem?.isEnabled = !isTitleEmpty
   }
@@ -163,6 +147,22 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
       default:
         break
     }
+  }
+  
+  // MARK: - Selector
+  @objc private func cancelBarButtonTapped() {
+    viewModel.dismiss()
+  }
+  
+  @objc private func addBarButtonTapped() {
+    viewModel.updateTitle(with: titleText)
+    viewModel.updateMemo(with: memo)
+    viewModel.add()
+    viewModel.dismiss()
+  }
+  
+  @objc private func textFieldDidChange() {
+    updateAddButtonEnabled(isTitleEmpty: titleText.isEmpty)
   }
 }
 
