@@ -161,8 +161,12 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
         
       case .flag:
         viewModel.showUpdateFlagView(current: viewModel.object.isFlag, config: config)
-      default:
-        break
+      
+      case .tag:
+        viewModel.showUpdateTagView(config: config, tags: viewModel.object.tags, delegate: self)
+        
+      case .priority:
+        viewModel.showUpdatePriorityView(current: viewModel.object.priority, config: config)
     }
   }
   
