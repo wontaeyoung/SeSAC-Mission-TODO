@@ -119,9 +119,16 @@ extension TodoListViewController: TableControllable {
     let data = viewModel.collection[row]
     
     if let imageData = viewModel.loadImage(router: .read(fileName: data.id.stringValue, fileExtension: .jpg)) {
-      cell.updateUI(with: data, image: UIImage(data: imageData), row: row)
+      cell.updateUI(with: data, image: UIImage(data: imageData))
     } else {
-      cell.updateUI(with: data, image: nil, row: row)
+      cell.updateUI(with: data, image: nil)
+    }
+    
+    cell.checkboxUpdateAction = { [weak self] in
+      guard let self else { return }
+      
+      viewModel.updateIsDone(with: data)
+      tableView.reloadData()
     }
     
     return cell

@@ -28,6 +28,9 @@ final class TodoTableViewCell: BaseTableViewCell {
   }
   private let photoImageView = UIImageView().configured { $0.contentMode = .scaleAspectFit }
   
+  // MARK: - Property
+  var checkboxUpdateAction: (() -> Void)?
+  
   // MARK: - Life Cycle
   override func setHierarchy() {
     contentView.addSubviews(
@@ -83,9 +86,8 @@ final class TodoTableViewCell: BaseTableViewCell {
   }
   
   // MARK: - Method
-  func updateUI(with data: TodoItem, image: UIImage?, row: Int) {
+  func updateUI(with data: TodoItem, image: UIImage?) {
     doneCheckboxButton.setImage(UIImage(systemName: data.isDone ? "checkmark.circle.fill" : "circle"), for: .normal)
-    doneCheckboxButton.tag = row
     titleLabel.text = data.title
     dueDateLabel.text = DateFormatManager.shared.toString(with: data.dueDate, formatString: "yyyy-MM-dd HH:mm")
     memoLabel.text = data.memo.emptyToDash
@@ -96,6 +98,6 @@ final class TodoTableViewCell: BaseTableViewCell {
   
   // MARK: - Selector
   @objc private func checkbokTapped(_ sender: UIButton) {
-    
+    checkboxUpdateAction?()
   }
 }
