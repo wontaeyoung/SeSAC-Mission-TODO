@@ -5,7 +5,7 @@
 //  Created by 원태영 on 2/15/24.
 //
 
-import Foundation
+import UIKit
 import KazUtility
 import RealmSwift
 
@@ -41,6 +41,33 @@ final class AddTodoViewModel: RealmObjectViewModel {
       let realmError: RealmError = .addFailed(error: error)
       LogManager.shared.log(with: realmError, to: .local)
       Task { await coordinator?.handle(error: realmError) }
+    }
+  }
+  
+  func writeImage(image: UIImage, router: PhotoFileRouter) {
+    guard let data = image.jpegData(compressionQuality: router.compressionPercent) else {
+      LogManager.shared.log(with: FileManageError.imageToDataFailed, to: .local)
+      Task { await coordinator?.handle(error: FileManageError.imageToDataFailed) }
+      return
+    }
+    
+    /// 파일 경로에 디렉토리가 존재하지 않으면 생성
+    if !router.directoryExist {
+      do {
+        try FileManager.default.createDirectory(at: router.directoryURL, withIntermediateDirectories: false)
+      } catch {
+        let directoryError: FileManageError = .createDirectoryFailed(error: error)
+        LogManager.shared.log(with: directoryError, to: .local)
+        Task { await coordinator?.handle(error: directoryError) }
+      }
+    }
+    
+    do {
+      try data.write(to: router.fileURL)
+    } catch {
+      let fileError: FileManageError = .writeDataFailed(error: error)
+      LogManager.shared.log(with: fileError, to: .local)
+      Task { await coordinator?.handle(error: fileError) }
     }
   }
 }
