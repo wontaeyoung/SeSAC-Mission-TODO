@@ -17,7 +17,7 @@ final class TodoListViewModel: RealmCollectionViewmodel {
   weak var coordinator: HomeCoordinator?
   
   // MARK: - Model
-  let collection: Results<TodoItem>
+  var collection: Results<TodoItem>
   var bindAction: ((Results<TodoItem>) -> Void)?
   var notificationToken: NotificationToken?
   
@@ -36,6 +36,10 @@ final class TodoListViewModel: RealmCollectionViewmodel {
     guard router.fileExist else { return nil }
     
     return FileManager.default.contents(atPath: router.filePath)
+  }
+  
+  func sortCollectionBy(_ selection: TodoSortSelection) {
+    collection = collection.sorted(byKeyPath: selection.sortKey.name)
   }
 }
 
