@@ -17,8 +17,19 @@ final class HomeViewController: BaseViewController, ViewModelController {
     $0.delegate = self
     $0.dataSource = self
   }
+  
+  private lazy var addTodoButton = UIButton().configured { button in
+    button.configuration = .plain().configured {
+      $0.title = "새로운 할 일"
+      $0.image = UIImage(systemName: "plus.circle.fill")
+      $0.imagePadding = 8
+    }
+    
+    button.addTarget(self, action: #selector(addTodoButtonTapped), for: .touchUpInside)
+  }
+  
   private lazy var toolbar = UIToolbar().configured {
-    let addTodo = UIBarButtonItem(title: "새로운 할 일", image: UIImage(systemName: "plus.circle.fill"), target: self, action: #selector(addTodoBarButtonTapped))
+    let addTodo = UIBarButtonItem(customView: addTodoButton)
     let addList = UIBarButtonItem(title: "목록 추가", style: .plain, target: self, action: #selector(addListBarButtonTapped))
     let spaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     
@@ -59,8 +70,8 @@ final class HomeViewController: BaseViewController, ViewModelController {
     }
   }
   
-  // MARK: - Method
-  @objc private func addTodoBarButtonTapped() {
+  // MARK: - Selector
+  @objc private func addTodoButtonTapped() {
     viewModel.showAddTodoView()
   }
   
