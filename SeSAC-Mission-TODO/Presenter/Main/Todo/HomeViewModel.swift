@@ -37,17 +37,19 @@ final class HomeViewModel: RealmCollectionViewmodel {
 extension HomeViewModel {
   
   func filter(by state: TodoItem.State) -> Results<TodoItem> {
+    let today = Calendar.current.startOfDay(for: .now)
+    let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
+    
     switch state {
       case .today:
-        let start = Calendar.current.startOfDay(for: .now)
-        let end = Calendar.current.date(byAdding: .day, value: 1, to: start)!
-        
         return collection
-          .where(column: .dueDate, comparison: .greaterEqual, value: start as NSDate)
-          .where(column: .dueDate, comparison: .less, value: end as NSDate)
+          .where(column: .dueDate, comparison: .greaterEqual, value: today as NSDate)
+          .where(column: .dueDate, comparison: .less, value: tomorrow as NSDate)
         
       case .plan:
-        return collection.where { !$0.isDone }
+        return collection
+          .where { !$0.isDone }
+          .where(column: .dueDate, comparison: .greaterEqual, value: tomorrow as NSDate)
       
       case .all:
         return collection
