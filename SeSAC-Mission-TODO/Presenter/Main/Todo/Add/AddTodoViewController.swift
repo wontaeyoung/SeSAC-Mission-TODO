@@ -38,10 +38,33 @@ enum TodoConfiguration: Int, CaseIterable {
   }
 }
 
+enum GetPhotoSelection: Int, CaseIterable {
+  
+  case camera
+  case album
+  case web
+  
+  var title: String {
+    switch self {
+      case .camera:
+        return "촬영하기"
+      case .album:
+        return "앨범에서 가져오기"
+      case .web:
+        return "웹에서 가져오기"
+    }
+  }
+  
+  var index: Int {
+    return self.rawValue
+  }
+}
+
 final class AddTodoViewController: BaseViewController, ViewModelController {
   
   // MARK: - UI
   private let cardView = CardView()
+  
   private lazy var titleTextField = UITextField().configured {
     $0.placeholder = "제목"
     $0.borderStyle = .none
@@ -50,7 +73,9 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
     $0.spellCheckingType = .no
     $0.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
   }
+  
   private let divider = Divider()
+  
   private let memoTextView = UITextView().configured {
     $0.backgroundColor = .clear
     $0.autocapitalizationType = .none
@@ -65,6 +90,8 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
     $0.dataSource = self
     $0.isScrollEnabled = false
   }
+  
+  private let photoImageView = UIImageView()
   
   // MARK: - Property
   let viewModel: AddTodoViewModel
