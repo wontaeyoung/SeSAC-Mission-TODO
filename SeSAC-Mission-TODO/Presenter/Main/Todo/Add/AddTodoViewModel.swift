@@ -40,14 +40,14 @@ final class AddTodoViewModel: RealmObjectViewModel {
     } catch {
       let realmError: RealmError = .addFailed(error: error)
       LogManager.shared.log(with: realmError, to: .local)
-      Task { await coordinator?.handle(error: realmError) }
+      Task { await coordinator?.showErrorAlert(error: realmError) }
     }
   }
   
   func writeImage(image: UIImage, router: PhotoFileRouter) {
     guard let data = image.jpegData(compressionQuality: router.compressionPercent) else {
       LogManager.shared.log(with: FileManageError.imageToDataFailed, to: .local)
-      Task { await coordinator?.handle(error: FileManageError.imageToDataFailed) }
+      Task { await coordinator?.showErrorAlert(error: FileManageError.imageToDataFailed) }
       return
     }
     
@@ -58,7 +58,7 @@ final class AddTodoViewModel: RealmObjectViewModel {
       } catch {
         let directoryError: FileManageError = .createDirectoryFailed(error: error)
         LogManager.shared.log(with: directoryError, to: .local)
-        Task { await coordinator?.handle(error: directoryError) }
+        Task { await coordinator?.showErrorAlert(error: directoryError) }
       }
     }
     
@@ -67,7 +67,7 @@ final class AddTodoViewModel: RealmObjectViewModel {
     } catch {
       let fileError: FileManageError = .writeDataFailed(error: error)
       LogManager.shared.log(with: fileError, to: .local)
-      Task { await coordinator?.handle(error: fileError) }
+      Task { await coordinator?.showErrorAlert(error: fileError) }
     }
   }
 }

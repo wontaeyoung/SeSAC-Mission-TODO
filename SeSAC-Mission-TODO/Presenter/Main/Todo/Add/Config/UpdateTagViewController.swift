@@ -151,7 +151,7 @@ final class UpdateTagViewController: BaseViewController {
     let tagTitleList = repository.fetch().map { $0.name }
     
     guard !tagTitleList.contains(newTag.name) else {
-      coordinator?.handle(error: UpdateTagError.aledyTagging(tag: tagTitle))
+      coordinator?.showErrorAlert(error: UpdateTagError.aledyTagging(tag: tagTitle))
       return
     }
     
