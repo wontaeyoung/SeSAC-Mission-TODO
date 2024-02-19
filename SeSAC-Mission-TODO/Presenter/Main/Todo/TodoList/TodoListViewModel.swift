@@ -53,5 +53,15 @@ final class TodoListViewModel: RealmCollectionViewmodel {
       Task { await coordinator?.showErrorAlert(error: error) }
     }
   }
+  
+  func deleteItem(with data: TodoItem) {
+    do {
+      try repository.delete(with: data)
+    } catch {
+      let error: RealmError = .updateFailed(error: error)
+      LogManager.shared.log(with: error, to: .local)
+      Task { await coordinator?.showErrorAlert(error: error) }
+    }
+  }
 }
 
