@@ -15,6 +15,7 @@ enum RealmError: AppError {
   case observedChangeError(error: Error)
   case addFailed(error: Error)
   case updateFailed(error: Error)
+  case removeFailed(error: Error)
   
   var logDescription: String {
     switch self {
@@ -29,6 +30,9 @@ enum RealmError: AppError {
         
       case .updateFailed(let error):
         return "데이터 업데이트에 실패했습니다. \(error.localizedDescription)"
+        
+      case .removeFailed(let error):
+        return "데이터 삭제에 실패했습니다. \(error.localizedDescription)"
     }
   }
   
@@ -42,6 +46,9 @@ enum RealmError: AppError {
         
       case .updateFailed:
         return "할 일을 수정하지 못했어요. \(RealmError.contactDeveloperMessage)"
+        
+      case .removeFailed:
+        return "할 일을 삭제하지 못했어요. \(RealmError.contactDeveloperMessage)"
     }
   }
 }
