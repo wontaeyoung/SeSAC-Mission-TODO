@@ -115,12 +115,13 @@ extension TodoListViewController: TableControllable {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: TodoTableViewCell.identifier, for: indexPath) as! TodoTableViewCell
     
-    let data = viewModel.collection[indexPath.row]
+    let row: Int = indexPath.row
+    let data = viewModel.collection[row]
     
     if let imageData = viewModel.loadImage(router: .read(fileName: data.id.stringValue, fileExtension: .jpg)) {
-      cell.updateUI(with: data, image: UIImage(data: imageData))
+      cell.updateUI(with: data, image: UIImage(data: imageData), row: row)
     } else {
-      cell.updateUI(with: data, image: nil)
+      cell.updateUI(with: data, image: nil, row: row)
     }
     
     return cell
