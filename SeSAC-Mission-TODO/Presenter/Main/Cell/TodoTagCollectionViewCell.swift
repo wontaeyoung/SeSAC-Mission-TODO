@@ -36,6 +36,7 @@ final class TodoTagCollectionViewCell: BaseCollectionViewCell {
     
     tagButton.configuration = config.configured {
       $0.title = "#\(data)"
+      $0.titleLineBreakMode = .byTruncatingTail
       $0.buttonSize = .small
       $0.cornerStyle = .small
     }
