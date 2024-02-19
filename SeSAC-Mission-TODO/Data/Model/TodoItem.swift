@@ -34,7 +34,6 @@ final class TodoItem: Object, RealmModel {
   @Persisted var tags: List<TodoTag>
   @Persisted var isFlag: Bool
   @Persisted var priority: Int
-  @Persisted var imageData: Data?
   @Persisted var isDone: Bool
   
   var isToday: Bool {
@@ -53,7 +52,6 @@ final class TodoItem: Object, RealmModel {
     tags: List<TodoTag> = .init(),
     isFlag: Bool = false,
     priority: Int = 0,
-    imageData: Data? = nil,
     isDone: Bool = false
   ) {
     self.init()
@@ -64,7 +62,6 @@ final class TodoItem: Object, RealmModel {
     self.tags = tags
     self.isFlag = isFlag
     self.priority = priority
-    self.imageData = imageData
     self.isDone = isDone
   }
   
