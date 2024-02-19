@@ -15,6 +15,7 @@ final class TodoListViewModel: RealmCollectionViewmodel {
   
   // MARK: - Property
   weak var coordinator: HomeCoordinator?
+  private let repository: any TodoItemRepository
   
   // MARK: - Model
   var collection: Results<TodoItem>
@@ -22,8 +23,9 @@ final class TodoListViewModel: RealmCollectionViewmodel {
   var notificationToken: NotificationToken?
   
   // MARK: - Initializer
-  init(coordinator: HomeCoordinator? = nil, collection: Results<TodoItem>) {
+  init(coordinator: HomeCoordinator? = nil, repository: any TodoItemRepository, collection: Results<TodoItem>) {
     self.coordinator = coordinator
+    self.repository = repository
     self.collection = collection
   }
   
@@ -40,6 +42,16 @@ final class TodoListViewModel: RealmCollectionViewmodel {
   
   func sortCollectionBy(_ selection: TodoSortSelection) {
     collection = collection.sorted(byKeyPath: selection.sortKey.name)
+  }
+  
+  func updateIsDone(with data: TodoItem) {
+    do {
+      try repository.update(to: data, with: [.isDone: !data.isDone])
+    } catch {
+      let error: RealmError = .updateFailed(error: error)
+      LogManager.shared.log(with: error, to: .local)
+      Task { await coordinator?.showErrorAlert(error: error) }
+    }
   }
 }
 

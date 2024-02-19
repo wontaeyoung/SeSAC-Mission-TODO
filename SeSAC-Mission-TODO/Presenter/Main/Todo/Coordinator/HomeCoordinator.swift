@@ -38,7 +38,8 @@ extension HomeCoordinator {
   }
   
   func showTodoListView(with collection: Results<TodoItem>, state: TodoItem.State) {
-    let viewModel = TodoListViewModel(coordinator: self, collection: collection)
+    let repository = LiveTodoItemRepository()
+    let viewModel = TodoListViewModel(coordinator: self, repository: repository, collection: collection)
     let viewController = TodoListViewController(viewModel: viewModel)
       .navigationTitle(with: "\(state.title) 할 일", displayMode: .never)
     
