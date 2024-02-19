@@ -31,8 +31,8 @@ extension Results where Element: RealmModel {
   }
   
   func `where`(
-    comparison: Operator.Comparison = .equal,
     column: Element.Column,
+    comparison: Operator.Comparison = .equal,
     value: any CVarArg
   ) -> Results<Element> {
     
