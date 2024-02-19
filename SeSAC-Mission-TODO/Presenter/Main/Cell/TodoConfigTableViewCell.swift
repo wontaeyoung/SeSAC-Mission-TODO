@@ -66,6 +66,9 @@ final class TodoConfigTableViewCell: BaseTableViewCell {
       
       case .priority:
         contentLabel.text = data.todoPriority.title
+        
+      case .addImage:
+        contentLabel.text = ""
     }
   }
 }

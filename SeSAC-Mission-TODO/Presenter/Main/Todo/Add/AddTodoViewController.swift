@@ -171,6 +171,9 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
         
       case .priority:
         viewModel.showUpdatePriorityView(current: viewModel.object.priority, config: config)
+        
+      default:
+        break
     }
   }
   
