@@ -73,7 +73,7 @@ final class TodoListViewController: BaseViewController, ViewModelController {
   }
   
   override func setAttribute() {
-    setRightBarButton()
+    setRightBarButtons()
   }
   
   override func setConstraint() {
@@ -89,8 +89,11 @@ final class TodoListViewController: BaseViewController, ViewModelController {
   }
   
   // MARK: - Method
-  private func setRightBarButton() {
-    navigationItem.rightBarButtonItem = UIBarButtonItem(customView: sortPullDownButton)
+  private func setRightBarButtons() {
+    let dateFilter = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(dateFilterButtonTapped))
+    let sort = UIBarButtonItem(customView: sortPullDownButton)
+    
+    navigationItem.rightBarButtonItems = [sort, dateFilter]
   }
   
   private func makeSortMenu() -> UIMenu {
@@ -107,6 +110,10 @@ final class TodoListViewController: BaseViewController, ViewModelController {
   }
   
   // MARK: - Selector
+  @objc private func dateFilterButtonTapped() {
+    
+  }
+  
   @objc private func sortPullDownButtonTapped(_ sender: UIButton) {
     sender.showsMenuAsPrimaryAction = true
     sender.menu = makeSortMenu()
