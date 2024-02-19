@@ -75,7 +75,7 @@ final class TodoTableViewCell: BaseTableViewCell {
   // MARK: - Method
   func updateUI(with data: TodoItem, image: UIImage?) {
     titleLabel.text = data.title
-    dueDateLabel.text = DateFormatManager.shared.toString(with: data.dueDate, formatString: "yyyy-MM-dd")
+    dueDateLabel.text = DateFormatManager.shared.toString(with: data.dueDate, formatString: "yyyy-MM-dd HH:mm")
     memoLabel.text = data.memo.emptyToDash
     photoImageView.image = image
     priorityLabel.text = "우선순위 \(data.todoPriority.title)"
