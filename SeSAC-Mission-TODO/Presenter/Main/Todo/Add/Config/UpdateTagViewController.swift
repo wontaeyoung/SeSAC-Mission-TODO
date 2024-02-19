@@ -201,7 +201,7 @@ extension UpdateTagViewController: CollectionControllable {
   
   private func makeCollectionLayout() -> UICollectionViewFlowLayout {
     return UICollectionViewFlowLayout().configured {
-      $0.itemSize = CGSize(width: 80, height: 30)
+      $0.itemSize = CGSize(width: 100, height: 30)
       $0.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
       $0.minimumLineSpacing = 8
       $0.scrollDirection = .horizontal
