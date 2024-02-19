@@ -16,6 +16,7 @@ enum TodoConfiguration: Int, CaseIterable {
   case flag
   case tag
   case priority
+  case addImage
   
   var title: String {
     switch self {
@@ -27,6 +28,8 @@ enum TodoConfiguration: Int, CaseIterable {
         return "태그"
       case .priority:
         return "우선 순위"
+      case .addImage:
+        return "이미지 추가"
     }
   }
   
