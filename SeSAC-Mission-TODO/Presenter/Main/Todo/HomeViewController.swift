@@ -98,6 +98,11 @@ extension HomeViewController: CollectionControllable {
     return cell
   }
   
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    let data = TodoItem.State.allCases[indexPath.row]
+    viewModel.showTodoListView(state: data)
+  }
+  
   private func setCollectionLayout() -> UICollectionViewFlowLayout {
     return UICollectionViewFlowLayout().configured {
       let cellItemInset: CGFloat = 10

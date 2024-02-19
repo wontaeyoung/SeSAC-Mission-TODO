@@ -7,6 +7,7 @@
 
 import UIKit
 import KazUtility
+import RealmSwift
 
 final class HomeCoordinator: Coordinator {
   
@@ -31,6 +32,15 @@ extension HomeCoordinator {
     let viewModel = HomeViewModel(coordinator: self, repository: repository)
     let viewController = HomeViewController(viewModel: viewModel)
       .navigationTitle(with: "전체", displayMode: .always)
+      .hideBackTitle()
+    
+    self.push(viewController)
+  }
+  
+  func showTodoListView(with collection: Results<TodoItem>, state: TodoItem.State) {
+    let viewModel = TodoListViewModel(coordinator: self, collection: collection)
+    let viewController = TodoListViewController(viewModel: viewModel)
+      .navigationTitle(with: "\(state.title) 할 일", displayMode: .never)
     
     self.push(viewController)
   }
