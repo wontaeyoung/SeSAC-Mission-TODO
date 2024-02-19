@@ -138,4 +138,11 @@ extension TodoListViewController: TableControllable {
     
     return cell
   }
+  
+  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    guard editingStyle == .delete else { return }
+    
+    let data = viewModel.collection[indexPath.row]
+    viewModel.deleteItem(with: data)
+  }
 }
