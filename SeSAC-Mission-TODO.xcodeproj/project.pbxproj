@@ -47,6 +47,7 @@
 		6EF0ACA32B823CBB00D98340 /* TodoTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACA22B823CBB00D98340 /* TodoTagCollectionViewCell.swift */; };
 		6EF0ACAF2B83335100D98340 /* FileManageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACAE2B83335100D98340 /* FileManageError.swift */; };
 		6EF0ACB52B835C0B00D98340 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACB42B835C0B00D98340 /* String+.swift */; };
+		6EF0ACB82B83865600D98340 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 6EF0ACB72B83865600D98340 /* FSCalendar */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +99,7 @@
 				6EF0AC702B7E725600D98340 /* RealmSwift in Frameworks */,
 				6EF0AC6E2B7E725600D98340 /* Realm in Frameworks */,
 				6E44D5B02B7CA39D00546F46 /* KazUtility in Frameworks */,
+				6EF0ACB82B83865600D98340 /* FSCalendar in Frameworks */,
 				6E44D5B92B7CA59D00546F46 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -346,6 +348,7 @@
 				6E44D5B82B7CA59D00546F46 /* SnapKit */,
 				6EF0AC6D2B7E725600D98340 /* Realm */,
 				6EF0AC6F2B7E725600D98340 /* RealmSwift */,
+				6EF0ACB72B83865600D98340 /* FSCalendar */,
 			);
 			productName = "SeSAC-Mission-TODO";
 			productReference = 6E8F73272B7CA00E005B2737 /* SeSAC-Mission-TODO.app */;
@@ -379,6 +382,7 @@
 				6E44D5AE2B7CA39D00546F46 /* XCRemoteSwiftPackageReference "KazUtility" */,
 				6E44D5B72B7CA59D00546F46 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				6EF0AC6C2B7E725600D98340 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				6EF0ACB62B83865600D98340 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 6E8F73282B7CA00E005B2737 /* Products */;
 			projectDirPath = "";
@@ -686,6 +690,14 @@
 				version = 10.47.0;
 			};
 		};
+		6EF0ACB62B83865600D98340 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -708,6 +720,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6EF0AC6C2B7E725600D98340 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		6EF0ACB72B83865600D98340 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6EF0ACB62B83865600D98340 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
