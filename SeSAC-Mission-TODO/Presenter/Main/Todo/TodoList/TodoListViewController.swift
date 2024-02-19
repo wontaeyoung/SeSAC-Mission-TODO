@@ -82,6 +82,12 @@ final class TodoListViewController: BaseViewController, ViewModelController {
     }
   }
   
+  override func bind() {
+    viewModel.observe { results in
+      self.tableView.reloadData()
+    }
+  }
+  
   // MARK: - Method
   private func setRightBarButton() {
     navigationItem.rightBarButtonItem = UIBarButtonItem(customView: sortPullDownButton)
@@ -128,7 +134,6 @@ extension TodoListViewController: TableControllable {
       guard let self else { return }
       
       viewModel.updateIsDone(with: data)
-      tableView.reloadData()
     }
     
     return cell
