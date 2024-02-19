@@ -9,6 +9,39 @@ import UIKit
 import KazUtility
 import SnapKit
 
+enum TodoSortSelection: Int, CaseIterable {
+  
+  case title
+  case dueDate
+  case priority
+  
+  var title: String {
+    switch self {
+      case .title:
+        return "제목"
+      case .dueDate:
+        return "마감일"
+      case .priority:
+        return "우선순위"
+    }
+  }
+  
+  var index: Int {
+    return self.rawValue
+  }
+  
+  var sortKey: TodoItem.Column {
+    switch self {
+      case .title:
+        return .title
+      case .dueDate:
+        return .dueDate
+      case .priority:
+        return .priority
+    }
+  }
+}
+
 final class TodoListViewController: BaseViewController, ViewModelController {
   
   // MARK: - UI
@@ -17,6 +50,11 @@ final class TodoListViewController: BaseViewController, ViewModelController {
     $0.dataSource = self
     $0.register(TodoTableViewCell.self, forCellReuseIdentifier: TodoTableViewCell.identifier)
     $0.showsVerticalScrollIndicator = false
+  }
+  
+  private lazy var sortPullDownButton = UIButton().configured {
+    $0.setImage(UIImage(systemName: "ellipsis.circle.fill"), for: .normal)
+    $0.addTarget(self, action: #selector(sortPullDownButtonTapped), for: .touchUpInside)
   }
   
   // MARK: - Property
@@ -34,10 +72,38 @@ final class TodoListViewController: BaseViewController, ViewModelController {
     view.addSubview(tableView)
   }
   
+  override func setAttribute() {
+    setRightBarButton()
+  }
+  
   override func setConstraint() {
     tableView.snp.makeConstraints { make in
       make.edges.equalTo(view.safeAreaLayoutGuide)
     }
+  }
+  
+  // MARK: - Method
+  private func setRightBarButton() {
+    navigationItem.rightBarButtonItem = UIBarButtonItem(customView: sortPullDownButton)
+  }
+  
+  private func makeSortMenu() -> UIMenu {
+    let menuItems: [UIAction] = TodoSortSelection.allCases.map { selection in
+      return UIAction(title: selection.title) { [weak self] _ in
+        guard let self else { return }
+        
+        viewModel.sortCollectionBy(selection)
+        tableView.reloadData()
+      }
+    }
+    
+    return UIMenu(title: "정렬하기", children: menuItems)
+  }
+  
+  // MARK: - Selector
+  @objc private func sortPullDownButtonTapped(_ sender: UIButton) {
+    sender.showsMenuAsPrimaryAction = true
+    sender.menu = makeSortMenu()
   }
 }
 
