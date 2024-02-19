@@ -36,13 +36,14 @@ final class TodoItem: Object, RealmModel {
   @Persisted var priority: Int
   @Persisted var isDone: Bool
   
-  var isToday: Bool {
-    return DateFormatManager.shared.toString(with: dueDate, format: .yyyyMMdd)
-    == DateFormatManager.shared.toString(with: Date.now, format: .yyyyMMdd)
-  }
-  
   var todoPriority: Priority {
     return Priority(rawValue: priority) ?? .none
+  }
+  
+  var tagString: String {
+    return tags
+      .map { "#" + $0.name }
+      .joined(separator: " ")
   }
   
   convenience init(
