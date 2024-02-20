@@ -17,9 +17,8 @@ final class TodoTag: Object, RealmModel {
     }
   }
   
-  /// 이 태그 레코드(인스턴스)를 포함하는 TodoItem과 역방향 관계 형성
-  let todoItems = LinkingObjects(fromType: TodoItem.self, property: TodoItem.Column.tags.name)
   @Persisted(primaryKey: true) var name: String
+  @Persisted(originProperty: TodoItem.Column.tags.name) var todo: LinkingObjects<TodoItem>
   
   convenience init(name: String) {
     self.init()
