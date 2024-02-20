@@ -35,6 +35,7 @@ final class TodoItem: Object, RealmModel {
   @Persisted var isFlag: Bool
   @Persisted var priority: Int
   @Persisted var isDone: Bool
+  @Persisted(originProperty: TodoBox.Column.items.name) var box: LinkingObjects<TodoBox>
   
   var todoPriority: Priority {
     return Priority(rawValue: priority) ?? .none
