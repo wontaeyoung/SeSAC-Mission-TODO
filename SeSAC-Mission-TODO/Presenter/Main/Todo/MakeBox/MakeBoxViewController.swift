@@ -1,5 +1,5 @@
 //
-//  UpsertBoxViewController.swift
+//  MakeBoxViewController.swift
 //  SeSAC-Mission-TODO
 //
 //  Created by 원태영 on 2/20/24.
@@ -9,7 +9,7 @@ import UIKit
 import KazUtility
 import SnapKit
 
-enum BoxUpsertStyle {
+enum MakeBoxStyle {
   case add
   case update(box: TodoBox)
   
@@ -23,10 +23,11 @@ enum BoxUpsertStyle {
   }
 }
 
-final class UpsertBoxViewController: BaseViewController {
+final class MakeBoxViewController: BaseViewController {
   
   // MARK: - UI
   private let titleCardView = CardView()
+  
   private lazy var boxIconButton = UIButton().configured { button in
     button.configuration = .filled().configured {
       $0.buttonSize = .large
@@ -36,6 +37,7 @@ final class UpsertBoxViewController: BaseViewController {
       $0.baseBackgroundColor = iconColor
     }
   }
+  
   private lazy var titleField = UITextField().configured {
     $0.placeholder = "목록 이름"
     $0.textAlignment = .center
@@ -48,6 +50,7 @@ final class UpsertBoxViewController: BaseViewController {
   }
   
   private let colorPaletteCardView = CardView()
+  
   private lazy var colorStack = UIStackView().configured { stack in
     stack.axis = .horizontal
     stack.spacing = 16
@@ -72,6 +75,7 @@ final class UpsertBoxViewController: BaseViewController {
   }
   
   private let symbolPaletteCardView = CardView()
+  
   private lazy var symbolStack = UIStackView().configured { stack in
     stack.axis = .horizontal
     stack.spacing = 16
@@ -97,8 +101,8 @@ final class UpsertBoxViewController: BaseViewController {
   }
   
   // MARK: - Property
-  private let upsertStyle: BoxUpsertStyle
-  private let upsertBoxAction: (TodoBox) -> Void
+  private let makeBoxStyle: MakeBoxStyle
+  private let makeBoxAction: (TodoBox) -> Void
   
   private var boxColor: BoxIcon.BoxColor {
     didSet {
@@ -144,12 +148,12 @@ final class UpsertBoxViewController: BaseViewController {
   }
   
   // MARK: - Initializer
-  init(upsertStyle: BoxUpsertStyle, upsertBoxAction: @escaping (TodoBox) -> Void) {
+  init(makeBoxStyle: MakeBoxStyle, makeBoxAction: @escaping (TodoBox) -> Void) {
     var title: String?
-    self.upsertStyle = upsertStyle
-    self.upsertBoxAction = upsertBoxAction
+    self.makeBoxStyle = makeBoxStyle
+    self.makeBoxAction = makeBoxAction
     
-    switch upsertStyle {
+    switch makeBoxStyle {
       case .add:
         self.boxColor = .first
         self.boxSymbol = .first
@@ -280,7 +284,7 @@ final class UpsertBoxViewController: BaseViewController {
   @objc private func doneTapped() {
     let todoBox = createNewTodoBox()
     
-    upsertBoxAction(todoBox)
+    makeBoxAction(todoBox)
     navigationController?.popViewController(animated: true)
   }
   
@@ -297,11 +301,4 @@ final class UpsertBoxViewController: BaseViewController {
     deselectAllSymbol()
     selectSymbol(tag: sender.tag)
   }
-}
-
-#Preview {
-  UINavigationController(
-    rootViewController: UpsertBoxViewController(upsertStyle: .add) { _ in }
-      .navigationTitle(with: "새로운 박스", displayMode: .never)
-  )
 }
