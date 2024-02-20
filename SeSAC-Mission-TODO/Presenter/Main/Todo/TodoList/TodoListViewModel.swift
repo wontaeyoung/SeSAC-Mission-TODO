@@ -16,6 +16,9 @@ final class TodoListViewModel: RealmCollectionViewmodel {
   // MARK: - Property
   weak var coordinator: HomeCoordinator?
   private let repository: any TodoItemRepository
+  lazy var currentDueDate: Bindable<Date> = .init(value: .now).subscribed { date in
+    self.filterCollectionByDueDate(current: date)
+  }
   
   // MARK: - Model
   var collection: Results<TodoItem>
@@ -44,6 +47,14 @@ final class TodoListViewModel: RealmCollectionViewmodel {
     collection = collection.sorted(byKeyPath: selection.sortKey.name)
   }
   
+  func filterCollectionByDueDate(current date: Date) {
+    let (start, end) = DateManager.shared.getDateBetween(when: date)
+    
+    collection = collection
+      .where(column: .dueDate, comparison: .greaterEqual, value: start as NSDate)
+      .where(column: .dueDate, comparison: .less, value: end as NSDate)
+  }
+  
   func updateIsDone(with data: TodoItem) {
     do {
       try repository.update(to: data, with: [.isDone: !data.isDone])
@@ -65,3 +76,12 @@ final class TodoListViewModel: RealmCollectionViewmodel {
   }
 }
 
+@MainActor
+extension TodoListViewModel {
+  
+  func showDueDateFilterSheet() {
+    coordinator?.showDueDateFilterSheet(current: currentDueDate.current) { date in
+      self.currentDueDate.set(date)
+    }
+  }
+}
