@@ -51,7 +51,7 @@
 		6EF0ACBA2B84243F00D98340 /* DueDateFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACB92B84243F00D98340 /* DueDateFilterViewController.swift */; };
 		6EF0ACDF2B8484FD00D98340 /* TodoBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACDE2B8484FD00D98340 /* TodoBox.swift */; };
 		6EF0ACE12B84871100D98340 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACE02B84871100D98340 /* UIColor+.swift */; };
-		6EF0ACE52B848B0400D98340 /* UpsertBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACE42B848B0400D98340 /* UpsertBoxViewController.swift */; };
+		6EF0ACE52B848B0400D98340 /* MakeBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACE42B848B0400D98340 /* MakeBoxViewController.swift */; };
 		6EF0ACE72B84C43C00D98340 /* TodoBoxRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACE62B84C43C00D98340 /* TodoBoxRepository.swift */; };
 		6EF0ACE92B84C48000D98340 /* LiveTodoBoxRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACE82B84C48000D98340 /* LiveTodoBoxRepository.swift */; };
 /* End PBXBuildFile section */
@@ -98,7 +98,7 @@
 		6EF0ACB92B84243F00D98340 /* DueDateFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DueDateFilterViewController.swift; sourceTree = "<group>"; };
 		6EF0ACDE2B8484FD00D98340 /* TodoBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoBox.swift; sourceTree = "<group>"; };
 		6EF0ACE02B84871100D98340 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
-		6EF0ACE42B848B0400D98340 /* UpsertBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertBoxViewController.swift; sourceTree = "<group>"; };
+		6EF0ACE42B848B0400D98340 /* MakeBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeBoxViewController.swift; sourceTree = "<group>"; };
 		6EF0ACE62B84C43C00D98340 /* TodoBoxRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoBoxRepository.swift; sourceTree = "<group>"; };
 		6EF0ACE82B84C48000D98340 /* LiveTodoBoxRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTodoBoxRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -182,8 +182,8 @@
 				6E44D5B22B7CA56700546F46 /* HomeViewController.swift */,
 				6E44D5BC2B7CB16C00546F46 /* HomeViewModel.swift */,
 				6EF0AC742B7EE04300D98340 /* TodoList */,
-				6EF0ACE32B848AE500D98340 /* UpsertBox */,
-				6EF0ACE22B848ADD00D98340 /* UpsertTodo */,
+				6EF0ACE32B848AE500D98340 /* MakeBox */,
+				6EF0ACE22B848ADD00D98340 /* MakeTodo */,
 			);
 			path = Todo;
 			sourceTree = "<group>";
@@ -334,7 +334,7 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
-		6EF0ACE22B848ADD00D98340 /* UpsertTodo */ = {
+		6EF0ACE22B848ADD00D98340 /* MakeTodo */ = {
 			isa = PBXGroup;
 			children = (
 				6EF0AC912B81172500D98340 /* Coordinator */,
@@ -342,15 +342,15 @@
 				6E44D5D22B7D8AB600546F46 /* MakeTodoViewModel.swift */,
 				6E44D5D42B7D958900546F46 /* Config */,
 			);
-			path = UpsertTodo;
+			path = MakeTodo;
 			sourceTree = "<group>";
 		};
-		6EF0ACE32B848AE500D98340 /* UpsertBox */ = {
+		6EF0ACE32B848AE500D98340 /* MakeBox */ = {
 			isa = PBXGroup;
 			children = (
-				6EF0ACE42B848B0400D98340 /* UpsertBoxViewController.swift */,
+				6EF0ACE42B848B0400D98340 /* MakeBoxViewController.swift */,
 			);
-			path = UpsertBox;
+			path = MakeBox;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -448,7 +448,7 @@
 				6E44D5DA2B7D9DA900546F46 /* UpdateTagViewController.swift in Sources */,
 				6EF0AC722B7E757C00D98340 /* IconLabel.swift in Sources */,
 				6E44D5DC2B7D9DB600546F46 /* UpdatePriorityViewController.swift in Sources */,
-				6EF0ACE52B848B0400D98340 /* UpsertBoxViewController.swift in Sources */,
+				6EF0ACE52B848B0400D98340 /* MakeBoxViewController.swift in Sources */,
 				6E8F732B2B7CA00E005B2737 /* AppDelegate.swift in Sources */,
 				6EF0AC9B2B8231D800D98340 /* List+.swift in Sources */,
 				6E44D5BB2B7CAA1B00546F46 /* HomeCoordinator.swift in Sources */,

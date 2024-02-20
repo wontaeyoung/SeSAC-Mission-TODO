@@ -38,9 +38,9 @@ extension HomeCoordinator {
     self.push(viewController)
   }
   
-  func showUpsertBoxView(upsertStyle: BoxUpsertStyle, updating action: @escaping (TodoBox) -> Void) {
-    let viewController = UpsertBoxViewController(upsertStyle: upsertStyle, upsertBoxAction: action)
-      .navigationTitle(with: upsertStyle.title, displayMode: .never)
+  func showMakeBoxView(makeBoxStyle: MakeBoxStyle, updating action: @escaping (TodoBox) -> Void) {
+    let viewController = MakeBoxViewController(makeBoxStyle: makeBoxStyle, makeBoxAction: action)
+      .navigationTitle(with: makeBoxStyle.title, displayMode: .never)
     
     self.push(viewController)
   }

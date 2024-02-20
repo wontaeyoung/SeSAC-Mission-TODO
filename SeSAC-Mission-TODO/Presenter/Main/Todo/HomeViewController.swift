@@ -76,7 +76,7 @@ final class HomeViewController: BaseViewController, ViewModelController {
   }
   
   @objc private func addListBarButtonTapped() {
-    viewModel.showUpsertBoxView(upsertStyle: .add)
+    viewModel.showMakeBoxView(makeBoxStyle: .add)
   }
 }
 

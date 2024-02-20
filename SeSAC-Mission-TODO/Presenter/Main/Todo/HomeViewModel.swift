@@ -78,8 +78,8 @@ extension HomeViewModel {
 extension HomeViewModel {
   
   @MainActor
-  func showUpsertBoxView(upsertStyle: BoxUpsertStyle) {
-    coordinator?.showUpsertBoxView(upsertStyle: upsertStyle) { [weak self] todoBox in
+  func showMakeBoxView(makeBoxStyle: MakeBoxStyle) {
+    coordinator?.showMakeBoxView(makeBoxStyle: makeBoxStyle) { [weak self] todoBox in
       guard let self else { return }
       
       do {
