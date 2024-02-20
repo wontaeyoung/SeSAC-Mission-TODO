@@ -23,10 +23,16 @@ final class MakeTodoViewModel: RealmObjectViewModel {
   var notificationToken: NotificationToken?
   
   // MARK: - Initializer
-  init(coordinator: MakeTodoCoordinator? = nil, repository: TodoItemRepository) {
+  init(coordinator: MakeTodoCoordinator? = nil, repository: TodoItemRepository, makeTodoStyle: MakeTodoStyle) {
     self.coordinator = coordinator
     self.repository = repository
-    self.object = .empty
+    
+    switch makeTodoStyle {
+      case .add:
+        self.object = .empty
+      case .update(let todo):
+        self.object = todo
+    }
   }
   
   deinit {

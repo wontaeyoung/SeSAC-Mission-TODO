@@ -9,6 +9,20 @@ import UIKit
 import KazUtility
 import SnapKit
 
+enum MakeTodoStyle {
+  case add
+  case update(todo: TodoItem)
+  
+  var title: String {
+    switch self {
+      case .add:
+        return "새로운 할 일"
+      case .update:
+        return "할 일 수정하기"
+    }
+  }
+}
+
 final class MakeTodoViewController: BaseViewController, ViewModelController {
   
   // MARK: - UI
@@ -40,7 +54,9 @@ final class MakeTodoViewController: BaseViewController, ViewModelController {
     $0.isScrollEnabled = false
   }
   
-  private let photoImageView = UIImageView().configured { $0.contentMode = .scaleAspectFit }
+  private let photoImageView = UIImageView().configured {
+    $0.contentMode = .scaleAspectFit
+  }
   
   // MARK: - Property
   let viewModel: MakeTodoViewModel

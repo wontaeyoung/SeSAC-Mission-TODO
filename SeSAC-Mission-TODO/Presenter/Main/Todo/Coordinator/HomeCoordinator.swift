@@ -54,16 +54,16 @@ extension HomeCoordinator {
     self.push(viewController)
   }
   
-  func combineAddTodoFlow() {
-    let coordinator = MakeTodoCoordinator(self.navigationController)
-    self.addChild(coordinator)
-    
-    coordinator.start()
-  }
-  
   func showDueDateFilterSheet(current date: Date, updating action: @escaping (Date) -> Void) {
     let viewController = DueDateFilterViewController(current: date, updating: action)
     
     self.present(viewController)
+  }
+  
+  func combineMakeTodoFlow(makeTodoStyle: MakeTodoStyle) {
+    let coordinator = MakeTodoCoordinator(self.navigationController)
+    self.addChild(coordinator)
+    
+    coordinator.presentMakeTodoView(makeTodoStyle: makeTodoStyle)
   }
 }

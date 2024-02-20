@@ -93,8 +93,8 @@ extension HomeViewModel {
   }
   
   @MainActor
-  func showAddTodoView() {
-    coordinator?.combineAddTodoFlow()
+  func showMakeTodoView(makeTodoStyle: MakeTodoStyle) {
+    coordinator?.combineMakeTodoFlow(makeTodoStyle: makeTodoStyle)
   }
   
   @MainActor

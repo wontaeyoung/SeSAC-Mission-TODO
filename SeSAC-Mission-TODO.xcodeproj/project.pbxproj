@@ -277,11 +277,11 @@
 		6EF0AC7D2B7FB57800D98340 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6EF0ACDE2B8484FD00D98340 /* TodoBox.swift */,
 				6E44D5BE2B7CE56F00546F46 /* TodoItem.swift */,
 				6EF0AC9C2B82367900D98340 /* TodoTag.swift */,
 				6EF0AC832B7FB83200D98340 /* RealmModel.swift */,
 				6EF0AC8F2B80A4E300D98340 /* RealmViewModel.swift */,
-				6EF0ACDE2B8484FD00D98340 /* TodoBox.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

@@ -22,17 +22,17 @@ final class MakeTodoCoordinator: Coordinator {
   }
   
   func start() {
-    presentAddTodoView()
+    
   }
 }
 
 extension MakeTodoCoordinator {
   
-  func presentAddTodoView() {
+  func presentMakeTodoView(makeTodoStyle: MakeTodoStyle) {
     let repository = LiveTodoItemRepository()
-    let viewModel = MakeTodoViewModel(coordinator: self, repository: repository)
+    let viewModel = MakeTodoViewModel(coordinator: self, repository: repository, makeTodoStyle: makeTodoStyle)
     let viewController = MakeTodoViewController(viewModel: viewModel)
-      .navigationTitle(with: "새로운 할 일", displayMode: .never)
+      .navigationTitle(with: makeTodoStyle.title, displayMode: .never)
       .hideBackTitle()
     
     self.modalNavigationController = UINavigationController(rootViewController: viewController)
