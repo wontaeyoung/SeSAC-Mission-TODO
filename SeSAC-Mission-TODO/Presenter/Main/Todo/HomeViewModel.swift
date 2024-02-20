@@ -11,22 +11,28 @@ import RealmSwift
 
 final class HomeViewModel: RealmCollectionViewmodel {
   
-  typealias ObjectType = TodoItem
+  typealias ObjectType = TodoBox
   
   // MARK: - Property
   weak var coordinator: HomeCoordinator?
-  private let repository: any TodoItemRepository
+  private let todoBoxRepository: any TodoBoxRepository
+  private let todoItemRepository: any TodoItemRepository
   
   // MARK: - Model
-  let collection: Results<TodoItem>
-  var bindAction: ((Results<TodoItem>) -> Void)?
+  let collection: Results<ObjectType>
+  var bindAction: ((Results<ObjectType>) -> Void)?
   var notificationToken: NotificationToken?
   
   // MARK: - Initializer
-  init(coordinator: HomeCoordinator? = nil, repository: any TodoItemRepository) {
+  init(
+    coordinator: HomeCoordinator? = nil,
+    todoBoxRepository: any TodoBoxRepository,
+    todoItemRepository: any TodoItemRepository
+  ) {
     self.coordinator = coordinator
-    self.repository = repository
-    self.collection = repository.fetch()
+    self.todoBoxRepository = todoBoxRepository
+    self.todoItemRepository = todoItemRepository
+    self.collection = todoBoxRepository.fetch()
   }
   
   deinit {
@@ -42,23 +48,25 @@ extension HomeViewModel {
     
     switch state {
       case .today:
-        return collection
+        return todoItemRepository.fetch()
           .where(column: .dueDate, comparison: .greaterEqual, value: today as NSDate)
           .where(column: .dueDate, comparison: .less, value: tomorrow as NSDate)
         
       case .plan:
-        return collection
+        return todoItemRepository.fetch()
           .where { !$0.isDone }
           .where(column: .dueDate, comparison: .greaterEqual, value: tomorrow as NSDate)
       
       case .all:
-        return collection
+        return todoItemRepository.fetch()
       
       case .flag:
-        return collection.where { $0.isFlag }
+        return todoItemRepository.fetch()
+          .where { $0.isFlag }
       
       case .done:
-        return collection.where { $0.isDone }
+        return todoItemRepository.fetch()
+          .where { $0.isDone }
     }
   }
   
