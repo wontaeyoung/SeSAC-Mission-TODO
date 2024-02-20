@@ -52,4 +52,10 @@ extension HomeCoordinator {
     
     coordinator.start()
   }
+  
+  func showDueDateFilterSheet(current date: Date, updating action: @escaping (Date) -> Void) {
+    let viewController = DueDateFilterViewController(current: date, updating: action)
+    
+    self.present(viewController)
+  }
 }
