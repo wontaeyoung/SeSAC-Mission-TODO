@@ -68,7 +68,7 @@ final class UpdateTagViewController: BaseViewController {
   
   // MARK: - Property
   var delegate: any UpdateConfigDelegate
-  weak var coordinator: AddTodoCoordinator?
+  weak var coordinator: MakeTodoCoordinator?
   private let repository: TodoTagRepository
   private let tags: List<TodoTag>
   private let maxTagTitleLength: Int = 6

@@ -1,5 +1,5 @@
 //
-//  AddTodoCoordinator.swift
+//  MakeTodoCoordinator.swift
 //  SeSAC-Mission-TODO
 //
 //  Created by 원태영 on 2/18/24.
@@ -9,7 +9,7 @@ import UIKit
 import KazUtility
 import RealmSwift
 
-final class AddTodoCoordinator: Coordinator {
+final class MakeTodoCoordinator: Coordinator {
   
   weak var delegate: CoordinatorDelegate?
   var navigationController: UINavigationController
@@ -26,12 +26,12 @@ final class AddTodoCoordinator: Coordinator {
   }
 }
 
-extension AddTodoCoordinator {
+extension MakeTodoCoordinator {
   
   func presentAddTodoView() {
     let repository = LiveTodoItemRepository()
-    let viewModel = AddTodoViewModel(coordinator: self, repository: repository)
-    let viewController = AddTodoViewController(viewModel: viewModel)
+    let viewModel = MakeTodoViewModel(coordinator: self, repository: repository)
+    let viewController = MakeTodoViewController(viewModel: viewModel)
       .navigationTitle(with: "새로운 할 일", displayMode: .never)
       .hideBackTitle()
     

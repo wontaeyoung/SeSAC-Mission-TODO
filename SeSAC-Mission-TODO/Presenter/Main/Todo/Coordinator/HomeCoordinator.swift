@@ -55,7 +55,7 @@ extension HomeCoordinator {
   }
   
   func combineAddTodoFlow() {
-    let coordinator = AddTodoCoordinator(self.navigationController)
+    let coordinator = MakeTodoCoordinator(self.navigationController)
     self.addChild(coordinator)
     
     coordinator.start()

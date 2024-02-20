@@ -1,5 +1,5 @@
 //
-//  AddTodoViewController.swift
+//  MakeTodoViewController.swift
 //  SeSAC-Mission-TODO
 //
 //  Created by 원태영 on 2/15/24.
@@ -8,9 +8,8 @@
 import UIKit
 import KazUtility
 import SnapKit
-import RealmSwift
 
-final class AddTodoViewController: BaseViewController, ViewModelController {
+final class MakeTodoViewController: BaseViewController, ViewModelController {
   
   // MARK: - UI
   private let cardView = CardView()
@@ -44,7 +43,7 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
   private let photoImageView = UIImageView().configured { $0.contentMode = .scaleAspectFit }
   
   // MARK: - Property
-  let viewModel: AddTodoViewModel
+  let viewModel: MakeTodoViewModel
   
   private var titleText: String {
     return titleTextField.text ?? ""
@@ -55,7 +54,7 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
   }
   
   // MARK: - Initialzier
-  init(viewModel: AddTodoViewModel) {
+  init(viewModel: MakeTodoViewModel) {
     self.viewModel = viewModel
     
     super.init()
@@ -195,6 +194,7 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
     viewModel.updateMemo(with: memo)
     viewModel.add()
     viewModel.dismiss()
+    
     if let image = photoImageView.image {
       viewModel.writeImage(
         image: image,
@@ -213,7 +213,7 @@ final class AddTodoViewController: BaseViewController, ViewModelController {
 }
 
 // MARK: - Image Picker Delegate
-extension AddTodoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension MakeTodoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
     if let pickedImage = info[.originalImage] as? UIImage {
@@ -225,7 +225,7 @@ extension AddTodoViewController: UIImagePickerControllerDelegate, UINavigationCo
 }
 
 // MARK: - Table Delegate
-extension AddTodoViewController: TableControllable {
+extension MakeTodoViewController: TableControllable {
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return TodoConfiguration.allCases.count
@@ -324,7 +324,7 @@ protocol UpdateConfigDelegate {
   func tagsDidUpdate()
 }
 
-extension AddTodoViewController: UpdateConfigDelegate {
+extension MakeTodoViewController: UpdateConfigDelegate {
   func tagsDidUpdate() {
     reloadConfig(with: .tag)
   }

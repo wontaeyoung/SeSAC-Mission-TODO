@@ -1,5 +1,5 @@
 //
-//  AddTodoViewModel.swift
+//  MakeTodoViewModel.swift
 //  SeSAC-Mission-TODO
 //
 //  Created by 원태영 on 2/15/24.
@@ -9,12 +9,12 @@ import UIKit
 import KazUtility
 import RealmSwift
 
-final class AddTodoViewModel: RealmObjectViewModel {
+final class MakeTodoViewModel: RealmObjectViewModel {
   
   typealias ObjectType = TodoItem
   
   // MARK: - Property
-  weak var coordinator: AddTodoCoordinator?
+  weak var coordinator: MakeTodoCoordinator?
   private let repository: TodoItemRepository
   
   // MARK: - Model
@@ -23,7 +23,7 @@ final class AddTodoViewModel: RealmObjectViewModel {
   var notificationToken: NotificationToken?
   
   // MARK: - Initializer
-  init(coordinator: AddTodoCoordinator? = nil, repository: TodoItemRepository) {
+  init(coordinator: MakeTodoCoordinator? = nil, repository: TodoItemRepository) {
     self.coordinator = coordinator
     self.repository = repository
     self.object = .empty
@@ -72,7 +72,7 @@ final class AddTodoViewModel: RealmObjectViewModel {
   }
 }
 
-extension AddTodoViewModel {
+extension MakeTodoViewModel {
   
   func updateTitle(with title: String) {
     object.title = title
@@ -95,7 +95,7 @@ extension AddTodoViewModel {
   }
 }
 
-extension AddTodoViewModel {
+extension MakeTodoViewModel {
   
   @MainActor
   func dismiss() {
