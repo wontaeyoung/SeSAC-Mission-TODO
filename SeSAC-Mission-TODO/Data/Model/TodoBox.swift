@@ -14,7 +14,9 @@ final class TodoBox: Object, RealmModel {
   enum Column: String {
     case id
     case name
+    case createAt
     case icon
+    case items
     
     var name: String {
       return self.rawValue
