@@ -111,7 +111,7 @@ final class TodoListViewController: BaseViewController, ViewModelController {
   
   // MARK: - Selector
   @objc private func dateFilterButtonTapped() {
-    
+    viewModel.showDueDateFilterSheet()
   }
   
   @objc private func sortPullDownButtonTapped(_ sender: UIButton) {
