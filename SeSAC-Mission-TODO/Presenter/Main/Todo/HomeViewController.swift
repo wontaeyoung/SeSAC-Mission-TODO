@@ -67,7 +67,13 @@ final class HomeViewController: BaseViewController, ViewModelController {
       guard let self else { return }
       
       collectonView.reloadData()
+      updateAddTodoButtonEnabled()
     }
+  }
+  
+  // MARK: - Method
+  private func updateAddTodoButtonEnabled() {
+    addTodoButton.isEnabled = !viewModel.collection.isEmpty
   }
   
   // MARK: - Selector
