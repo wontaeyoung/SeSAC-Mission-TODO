@@ -78,6 +78,21 @@ extension HomeViewModel {
 extension HomeViewModel {
   
   @MainActor
+  func showUpsertBoxView(upsertStyle: BoxUpsertStyle) {
+    coordinator?.showUpsertBoxView(upsertStyle: upsertStyle) { [weak self] todoBox in
+      guard let self else { return }
+      
+      do {
+        try todoBoxRepository.create(with: todoBox)
+      } catch {
+        let error = RealmError.addFailed(error: error)
+        LogManager.shared.log(with: error, to: .local)
+        coordinator?.showErrorAlert(error: error)
+      }
+    }
+  }
+  
+  @MainActor
   func showAddTodoView() {
     coordinator?.combineAddTodoFlow()
   }

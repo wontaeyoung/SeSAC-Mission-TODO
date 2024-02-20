@@ -38,6 +38,13 @@ extension HomeCoordinator {
     self.push(viewController)
   }
   
+  func showUpsertBoxView(upsertStyle: BoxUpsertStyle, updating action: @escaping (TodoBox) -> Void) {
+    let viewController = UpsertBoxViewController(upsertStyle: upsertStyle, upsertBoxAction: action)
+      .navigationTitle(with: upsertStyle.title, displayMode: .never)
+    
+    self.push(viewController)
+  }
+  
   func showTodoListView(with collection: Results<TodoItem>, state: TodoItem.State) {
     let repository = LiveTodoItemRepository()
     let viewModel = TodoListViewModel(coordinator: self, repository: repository, collection: collection)
