@@ -89,7 +89,7 @@ final class TodoTableViewCell: BaseTableViewCell {
   func updateUI(with data: TodoItem, image: UIImage?) {
     doneCheckboxButton.setImage(UIImage(systemName: data.isDone ? "checkmark.circle.fill" : "circle"), for: .normal)
     titleLabel.text = data.title
-    dueDateLabel.text = DateFormatManager.shared.toString(with: data.dueDate, formatString: "yyyy-MM-dd HH:mm")
+    dueDateLabel.text = DateManager.shared.toString(with: data.dueDate, formatString: "yyyy-MM-dd HH:mm")
     memoLabel.text = data.memo.emptyToDash
     photoImageView.image = image
     priorityLabel.text = "우선순위 \(data.todoPriority.title)"

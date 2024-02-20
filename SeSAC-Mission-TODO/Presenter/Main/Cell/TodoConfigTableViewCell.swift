@@ -54,7 +54,7 @@ final class TodoConfigTableViewCell: BaseTableViewCell {
     
     switch config {
       case .dutDate:
-        contentLabel.text = DateFormatManager.shared.toString(with: data.dueDate, formatString: "yyyy-MM-dd")
+        contentLabel.text = DateManager.shared.toString(with: data.dueDate, formatString: "yyyy-MM-dd")
       
       case .flag:
         contentLabel.text = data.isFlag ? "On" : "Off"
