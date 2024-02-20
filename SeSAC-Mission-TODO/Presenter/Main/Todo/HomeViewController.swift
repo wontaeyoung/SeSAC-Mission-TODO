@@ -18,9 +18,21 @@ final class HomeViewController: BaseViewController, ViewModelController {
     $0.dataSource = self
   }
   
+  private let boxListTitleLabel = UILabel().configured {
+    $0.text = "나의 목록"
+    $0.font = .systemFont(ofSize: 20, weight: .semibold)
+  }
+  
+  private lazy var tableView = UITableView().configured {
+    $0.register(TodoBoxTableViewCell.self, forCellReuseIdentifier: TodoBoxTableViewCell.identifier)
+    $0.delegate = self
+    $0.dataSource = self
+    $0.showsVerticalScrollIndicator = false
+  }
+  
   private lazy var addTodoButton = UIButton().configured { button in
     button.configuration = .plain().configured {
-      $0.title = "새로운 할 일"
+      $0.title = MakeTodoStyle.add.title
       $0.image = UIImage(systemName: "plus.circle.fill")
       $0.imagePadding = 8
     }
@@ -48,7 +60,7 @@ final class HomeViewController: BaseViewController, ViewModelController {
   
   // MARK: - Life Cycle
   override func setHierarchy() {
-    view.addSubview(collectonView)
+    view.addSubviews(collectonView, boxListTitleLabel, tableView)
   }
   
   override func setAttribute() {
@@ -58,7 +70,18 @@ final class HomeViewController: BaseViewController, ViewModelController {
   
   override func setConstraint() {
     collectonView.snp.makeConstraints { make in
-      make.edges.equalTo(view.safeAreaLayoutGuide)
+      make.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+      make.height.equalTo(view.safeAreaLayoutGuide).multipliedBy(0.5)
+    }
+    
+    boxListTitleLabel.snp.makeConstraints { make in
+      make.top.equalTo(collectonView.snp.bottom).offset(16)
+      make.horizontalEdges.equalTo(view).inset(12)
+    }
+    
+    tableView.snp.makeConstraints { make in
+      make.top.equalTo(boxListTitleLabel.snp.bottom).offset(8)
+      make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
     }
   }
   
@@ -66,6 +89,7 @@ final class HomeViewController: BaseViewController, ViewModelController {
     viewModel.observe { [weak self] _ in
       guard let self else { return }
       
+      tableView.reloadData()
       collectonView.reloadData()
       updateAddTodoButtonEnabled()
     }
@@ -121,5 +145,24 @@ extension HomeViewController: CollectionControllable {
       $0.minimumInteritemSpacing = cellItemInset
       $0.scrollDirection = .vertical
     }
+  }
+}
+
+
+///// 할 일 리스트 테이블뷰 그리기
+extension HomeViewController: TableControllable {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return viewModel.collection.count
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: TodoBoxTableViewCell.identifier, for: indexPath) as! TodoBoxTableViewCell
+    let data = viewModel.collection[indexPath.row]
+    
+    cell.updateUI(with: data)
+    cell.backgroundConfiguration = .listGroupedCell()
+    cell.accessoryType = .disclosureIndicator
+    
+    return cell
   }
 }

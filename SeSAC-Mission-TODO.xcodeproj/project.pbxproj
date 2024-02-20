@@ -54,6 +54,7 @@
 		6EF0ACE52B848B0400D98340 /* MakeBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACE42B848B0400D98340 /* MakeBoxViewController.swift */; };
 		6EF0ACE72B84C43C00D98340 /* TodoBoxRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACE62B84C43C00D98340 /* TodoBoxRepository.swift */; };
 		6EF0ACE92B84C48000D98340 /* LiveTodoBoxRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACE82B84C48000D98340 /* LiveTodoBoxRepository.swift */; };
+		6EF0ACEB2B84EF1400D98340 /* TodoBoxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACEA2B84EF1400D98340 /* TodoBoxTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,6 +102,7 @@
 		6EF0ACE42B848B0400D98340 /* MakeBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeBoxViewController.swift; sourceTree = "<group>"; };
 		6EF0ACE62B84C43C00D98340 /* TodoBoxRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoBoxRepository.swift; sourceTree = "<group>"; };
 		6EF0ACE82B84C48000D98340 /* LiveTodoBoxRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTodoBoxRepository.swift; sourceTree = "<group>"; };
+		6EF0ACEA2B84EF1400D98340 /* TodoBoxTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoBoxTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +205,7 @@
 				6E44D5D02B7D887C00546F46 /* TodoConfigTableViewCell.swift */,
 				6EF0AC792B7EE17C00D98340 /* TodoTableViewCell.swift */,
 				6EF0ACA22B823CBB00D98340 /* TodoTagCollectionViewCell.swift */,
+				6EF0ACEA2B84EF1400D98340 /* TodoBoxTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -474,6 +477,7 @@
 				6E44D5B32B7CA56700546F46 /* HomeViewController.swift in Sources */,
 				6EF0AC842B7FB83200D98340 /* RealmModel.swift in Sources */,
 				6EF0ACE92B84C48000D98340 /* LiveTodoBoxRepository.swift in Sources */,
+				6EF0ACEB2B84EF1400D98340 /* TodoBoxTableViewCell.swift in Sources */,
 				6EF0ACE72B84C43C00D98340 /* TodoBoxRepository.swift in Sources */,
 				6EF0ACA12B8238EE00D98340 /* LiveTodoTagRepository.swift in Sources */,
 			);
