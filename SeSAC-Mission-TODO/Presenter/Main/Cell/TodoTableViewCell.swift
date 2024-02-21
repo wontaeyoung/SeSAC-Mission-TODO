@@ -22,10 +22,7 @@ final class TodoTableViewCell: BaseTableViewCell {
   
   private let memoLabel = UILabel().configured {
     $0.font = .systemFont(ofSize: 13, weight: .regular)
-  }
-  
-  private let priorityLabel = UILabel().configured {
-    $0.font = .systemFont(ofSize: 13, weight: .semibold)
+    $0.numberOfLines = 3
   }
   
   private let tagLabel = UILabel().configured {
@@ -51,7 +48,6 @@ final class TodoTableViewCell: BaseTableViewCell {
       doneCheckboxButton,
       titleLabel, dueDateLabel,
       memoLabel, photoImageView,
-      priorityLabel,
       tagLabel
     )
   }
@@ -74,6 +70,7 @@ final class TodoTableViewCell: BaseTableViewCell {
     
     dueDateLabel.snp.makeConstraints { make in
       make.top.equalTo(contentView).inset(8)
+      make.leading.equalTo(titleLabel.snp.trailing).offset(8)
       make.trailing.equalTo(contentView).inset(16)
     }
     
@@ -89,14 +86,8 @@ final class TodoTableViewCell: BaseTableViewCell {
       make.size.equalTo(44)
     }
     
-    priorityLabel.snp.makeConstraints { make in
-      make.top.equalTo(memoLabel.snp.bottom).offset(8)
-      make.leading.equalTo(doneCheckboxButton.snp.trailing).offset(8)
-      make.trailing.equalTo(photoImageView.snp.leading).offset(-8)
-    }
-    
     tagLabel.snp.makeConstraints { make in
-      make.top.equalTo(priorityLabel.snp.bottom).offset(8)
+      make.top.equalTo(memoLabel.snp.bottom).offset(8)
       make.bottom.equalTo(contentView).inset(8)
       make.leading.equalTo(doneCheckboxButton.snp.trailing).offset(8)
       make.trailing.equalTo(photoImageView.snp.leading).offset(-8)
@@ -106,12 +97,11 @@ final class TodoTableViewCell: BaseTableViewCell {
   // MARK: - Method
   func updateUI(with data: TodoItem, image: UIImage?) {
     doneCheckboxButton.setImage(UIImage(systemName: data.isDone ? "checkmark.circle.fill" : "circle"), for: .normal)
-    titleLabel.text = data.title
+    titleLabel.text = String(repeating: "!", count: data.priority) + " " + data.title
     dueDateLabel.text = DateManager.shared.toString(with: data.dueDate, formatString: "yyyy-MM-dd HH:mm")
     memoLabel.text = data.memo.emptyToDash
     photoImageView.image = image
-    priorityLabel.text = "우선순위 \(data.todoPriority.title)"
-    tagLabel.text = data.tagString
+    tagLabel.text = data.tagString.emptyToShop
   }
   
   // MARK: - Selector
