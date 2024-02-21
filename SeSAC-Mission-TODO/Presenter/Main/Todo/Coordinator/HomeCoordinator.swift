@@ -54,6 +54,15 @@ extension HomeCoordinator {
     self.push(viewController)
   }
   
+  func showBoxTodoListView(with box: TodoBox) {
+    let repository = LiveTodoBoxRepository()
+    let viewModel = BoxTodoListViewModel(coordinator: self, repository: repository, box: box)
+    let viewController = BoxTodoListViewController(viewModel: viewModel)
+      .navigationTitle(with: box.name, displayMode: .always)
+    
+    self.push(viewController)
+  }
+  
   func showDueDateFilterSheet(current date: Date, updating action: @escaping (Date) -> Void) {
     let viewController = DueDateFilterViewController(current: date, updating: action)
     
