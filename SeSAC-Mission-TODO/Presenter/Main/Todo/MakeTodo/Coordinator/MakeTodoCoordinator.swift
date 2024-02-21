@@ -68,6 +68,16 @@ extension MakeTodoCoordinator {
     modalNavigationController.present(alertController, animated: true)
   }
   
+  func showUpdateBoxView(makeTodoStyle: MakeTodoStyle) {
+    let todoBoxRepository = LiveTodoBoxRepository()
+    let todoItemRepository = LiveTodoItemRepository()
+    let viewModel = MakeTodoViewModel(coordinator: self, todoBoxRepository: todoBoxRepository, todoItemRepository: todoItemRepository, makeTodoStyle: makeTodoStyle)
+    let viewController = UpdateTodoBoxViewController(viewModel: viewModel)
+      .navigationTitle(with: "목록 변경", displayMode: .never)
+    
+    pushWithModalController(viewController)
+  }
+  
   func showUpdateDueDateView(current date: Date, config: TodoConfiguration, updateDateAction: @escaping (Date) -> Void) {
     let viewController = UpdateDueDateViewController(current: date, updateDateAction: updateDateAction)
       .navigationTitle(with: config.title, displayMode: .never)

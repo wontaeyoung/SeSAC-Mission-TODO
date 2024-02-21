@@ -55,6 +55,7 @@
 		6EF0ACE72B84C43C00D98340 /* TodoBoxRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACE62B84C43C00D98340 /* TodoBoxRepository.swift */; };
 		6EF0ACE92B84C48000D98340 /* LiveTodoBoxRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACE82B84C48000D98340 /* LiveTodoBoxRepository.swift */; };
 		6EF0ACEB2B84EF1400D98340 /* TodoBoxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACEA2B84EF1400D98340 /* TodoBoxTableViewCell.swift */; };
+		6EF0ACEF2B85030800D98340 /* UpdateTodoBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACEE2B85030800D98340 /* UpdateTodoBoxViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,6 +104,7 @@
 		6EF0ACE62B84C43C00D98340 /* TodoBoxRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoBoxRepository.swift; sourceTree = "<group>"; };
 		6EF0ACE82B84C48000D98340 /* LiveTodoBoxRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTodoBoxRepository.swift; sourceTree = "<group>"; };
 		6EF0ACEA2B84EF1400D98340 /* TodoBoxTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoBoxTableViewCell.swift; sourceTree = "<group>"; };
+		6EF0ACEE2B85030800D98340 /* UpdateTodoBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTodoBoxViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +229,7 @@
 				6EF0AC962B8218D500D98340 /* UpdateFlagViewController.swift */,
 				6E44D5D92B7D9DA900546F46 /* UpdateTagViewController.swift */,
 				6E44D5DB2B7D9DB600546F46 /* UpdatePriorityViewController.swift */,
+				6EF0ACEE2B85030800D98340 /* UpdateTodoBoxViewController.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -452,6 +455,7 @@
 				6EF0AC722B7E757C00D98340 /* IconLabel.swift in Sources */,
 				6E44D5DC2B7D9DB600546F46 /* UpdatePriorityViewController.swift in Sources */,
 				6EF0ACE52B848B0400D98340 /* MakeBoxViewController.swift in Sources */,
+				6EF0ACEF2B85030800D98340 /* UpdateTodoBoxViewController.swift in Sources */,
 				6E8F732B2B7CA00E005B2737 /* AppDelegate.swift in Sources */,
 				6EF0AC9B2B8231D800D98340 /* List+.swift in Sources */,
 				6E44D5BB2B7CAA1B00546F46 /* HomeCoordinator.swift in Sources */,
