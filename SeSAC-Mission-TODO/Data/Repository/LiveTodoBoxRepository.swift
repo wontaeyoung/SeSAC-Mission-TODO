@@ -37,12 +37,33 @@ final class LiveTodoBoxRepository: TodoBoxRepository {
       .sorted(byKeyPath: column.name, ascending: ascending)
   }
   
-  func update(to item: TodoBox, with value: [TodoBox.Column : Any]) throws {
+  func update(with box: TodoBox) throws {
+    try realm.write {
+      realm.create(TodoBox.self, value: box, update: .modified)
+    }
+  }
+  
+  func update(with box: TodoBox, updating action: (TodoBox) -> Void) throws {
+    try realm.write {
+      action(box)
+      realm.create(TodoBox.self, value: box, update: .modified)
+    }
+  }
+  
+  func update(to item: TodoBox, with value: [TodoBox.Column: Any]) throws {
     let columns = value.mapKeys { $0.name }
     let mergedWithID = [TodoBox.Column.id.name: item.id].merging(columns) { $1 }
     
     try realm.write {
       realm.create(TodoBox.self, value: mergedWithID, update: .modified)
+    }
+  }
+  
+  func updateListItem(to box: TodoBox, at item: TodoItem, updating action: (TodoItem) -> Void) throws {
+    try realm.write {
+      guard let index = box.items.firstIndex(of: item) else { return }
+      action(item)
+      box.items.replace(index: index, object: item)
     }
   }
   
@@ -55,6 +76,19 @@ final class LiveTodoBoxRepository: TodoBoxRepository {
   func delete(with item: TodoBox) throws {
     try realm.write {
       realm.delete(item)
+    }
+  }
+  
+  func deleteListItem(to box: TodoBox, at item: TodoItem) throws {
+    try realm.write {
+      realm.delete(item)
+    }
+  }
+  
+  func disconnectListItem(to box: TodoBox, at item: TodoItem) throws {
+    try realm.write {
+      guard let index = box.items.firstIndex(of: item) else { return }
+      box.items.remove(at: index)
     }
   }
   
