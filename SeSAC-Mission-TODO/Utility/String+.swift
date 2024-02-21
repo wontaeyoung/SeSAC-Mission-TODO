@@ -9,4 +9,8 @@ extension String {
   var emptyToDash: String {
     return self.isEmpty ? "-" : self
   }
+  
+  var emptyToShop: String {
+    return self.isEmpty ? "#" : self
+  }
 }
