@@ -148,8 +148,6 @@ extension HomeViewController: CollectionControllable {
   }
 }
 
-
-///// 할 일 리스트 테이블뷰 그리기
 extension HomeViewController: TableControllable {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return viewModel.collection.count
