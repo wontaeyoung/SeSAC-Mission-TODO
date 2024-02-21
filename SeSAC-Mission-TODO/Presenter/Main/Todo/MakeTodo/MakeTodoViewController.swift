@@ -10,7 +10,7 @@ import KazUtility
 import SnapKit
 
 enum MakeTodoStyle {
-  case add
+  case add(box: TodoBox)
   case update(todo: TodoItem)
   
   var title: String {
