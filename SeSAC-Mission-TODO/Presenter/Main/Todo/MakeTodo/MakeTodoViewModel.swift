@@ -15,23 +15,29 @@ final class MakeTodoViewModel: RealmObjectViewModel {
   
   // MARK: - Property
   weak var coordinator: MakeTodoCoordinator?
-  private let repository: TodoItemRepository
+  private let todoBoxRepository: any TodoBoxRepository
+  private let todoItemRepository: any TodoItemRepository
   
   // MARK: - Model
   var object: TodoItem
   var bindAction: ((TodoItem) -> Void)?
   var notificationToken: NotificationToken?
+  var currentBox: TodoBox
   
   // MARK: - Initializer
-  init(coordinator: MakeTodoCoordinator? = nil, repository: TodoItemRepository, makeTodoStyle: MakeTodoStyle) {
+  init(coordinator: MakeTodoCoordinator? = nil, todoBoxRepository: any TodoBoxRepository, todoItemRepository: any TodoItemRepository, makeTodoStyle: MakeTodoStyle) {
     self.coordinator = coordinator
-    self.repository = repository
+    self.todoBoxRepository = todoBoxRepository
+    self.todoItemRepository = todoItemRepository
     
     switch makeTodoStyle {
       case .add:
         self.object = .empty
+        self.currentBox = todoBoxRepository.fetch().first!
+        
       case .update(let todo):
         self.object = todo
+        self.currentBox = todo.box.first ?? todoBoxRepository.fetch().first!
     }
   }
   
