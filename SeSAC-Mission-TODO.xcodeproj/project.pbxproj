@@ -56,6 +56,9 @@
 		6EF0ACE92B84C48000D98340 /* LiveTodoBoxRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACE82B84C48000D98340 /* LiveTodoBoxRepository.swift */; };
 		6EF0ACEB2B84EF1400D98340 /* TodoBoxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACEA2B84EF1400D98340 /* TodoBoxTableViewCell.swift */; };
 		6EF0ACEF2B85030800D98340 /* UpdateTodoBoxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACEE2B85030800D98340 /* UpdateTodoBoxViewController.swift */; };
+		6EF0ACF82B86086300D98340 /* BoxTodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACF72B86086300D98340 /* BoxTodoListViewController.swift */; };
+		6EF0ACFA2B860ABB00D98340 /* BoxTodoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACF92B860ABB00D98340 /* BoxTodoListViewModel.swift */; };
+		6EF0ACFC2B86286700D98340 /* MakeBoxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF0ACFB2B86286700D98340 /* MakeBoxViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +108,9 @@
 		6EF0ACE82B84C48000D98340 /* LiveTodoBoxRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTodoBoxRepository.swift; sourceTree = "<group>"; };
 		6EF0ACEA2B84EF1400D98340 /* TodoBoxTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoBoxTableViewCell.swift; sourceTree = "<group>"; };
 		6EF0ACEE2B85030800D98340 /* UpdateTodoBoxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTodoBoxViewController.swift; sourceTree = "<group>"; };
+		6EF0ACF72B86086300D98340 /* BoxTodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxTodoListViewController.swift; sourceTree = "<group>"; };
+		6EF0ACF92B860ABB00D98340 /* BoxTodoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxTodoListViewModel.swift; sourceTree = "<group>"; };
+		6EF0ACFB2B86286700D98340 /* MakeBoxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeBoxViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +192,7 @@
 				6E44D5B22B7CA56700546F46 /* HomeViewController.swift */,
 				6E44D5BC2B7CB16C00546F46 /* HomeViewModel.swift */,
 				6EF0AC742B7EE04300D98340 /* TodoList */,
+				6EF0ACF62B86082A00D98340 /* BoxTodoList */,
 				6EF0ACE32B848AE500D98340 /* MakeBox */,
 				6EF0ACE22B848ADD00D98340 /* MakeTodo */,
 			);
@@ -355,8 +362,18 @@
 			isa = PBXGroup;
 			children = (
 				6EF0ACE42B848B0400D98340 /* MakeBoxViewController.swift */,
+				6EF0ACFB2B86286700D98340 /* MakeBoxViewModel.swift */,
 			);
 			path = MakeBox;
+			sourceTree = "<group>";
+		};
+		6EF0ACF62B86082A00D98340 /* BoxTodoList */ = {
+			isa = PBXGroup;
+			children = (
+				6EF0ACF72B86086300D98340 /* BoxTodoListViewController.swift */,
+				6EF0ACF92B860ABB00D98340 /* BoxTodoListViewModel.swift */,
+			);
+			path = BoxTodoList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -461,6 +478,7 @@
 				6E44D5BB2B7CAA1B00546F46 /* HomeCoordinator.swift in Sources */,
 				6EF0ACB52B835C0B00D98340 /* String+.swift in Sources */,
 				6E44D5CD2B7D871900546F46 /* Divider.swift in Sources */,
+				6EF0ACFC2B86286700D98340 /* MakeBoxViewModel.swift in Sources */,
 				6E44D5D32B7D8AB600546F46 /* MakeTodoViewModel.swift in Sources */,
 				6EF0AC902B80A4E300D98340 /* RealmViewModel.swift in Sources */,
 				6EF0ACDF2B8484FD00D98340 /* TodoBox.swift in Sources */,
@@ -471,8 +489,10 @@
 				6EF0ACAF2B83335100D98340 /* FileManageError.swift in Sources */,
 				6E44D5D82B7D9D9400546F46 /* UpdateDueDateViewController.swift in Sources */,
 				6EF0ACA32B823CBB00D98340 /* TodoTagCollectionViewCell.swift in Sources */,
+				6EF0ACF82B86086300D98340 /* BoxTodoListViewController.swift in Sources */,
 				6EF0AC8B2B7FC38F00D98340 /* LiveTodoItemRepository.swift in Sources */,
 				6E8F732D2B7CA00E005B2737 /* SceneDelegate.swift in Sources */,
+				6EF0ACFA2B860ABB00D98340 /* BoxTodoListViewModel.swift in Sources */,
 				6EF0AC762B7EE05D00D98340 /* TodoListViewController.swift in Sources */,
 				6EF0AC9D2B82367900D98340 /* TodoTag.swift in Sources */,
 				6EF0AC822B7FB6E900D98340 /* TodoItemRepository.swift in Sources */,

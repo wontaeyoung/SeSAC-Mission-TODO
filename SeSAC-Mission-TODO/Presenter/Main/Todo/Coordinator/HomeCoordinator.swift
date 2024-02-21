@@ -38,8 +38,13 @@ extension HomeCoordinator {
     self.push(viewController)
   }
   
-  func showMakeBoxView(makeBoxStyle: MakeBoxStyle, updating action: @escaping (TodoBox) -> Void) {
-    let viewController = MakeBoxViewController(makeBoxStyle: makeBoxStyle, makeBoxAction: action)
+  func showMakeBoxView(makeBoxStyle: MakeBoxStyle) {
+    let repository = LiveTodoBoxRepository()
+    let viewModel = MakeBoxViewModel(coordinator: self,
+                                     repository: repository,
+                                     makeBoxStyle: makeBoxStyle)
+    let viewController = MakeBoxViewController(viewModel: viewModel, 
+                                               makeBoxStyle: makeBoxStyle)
       .navigationTitle(with: makeBoxStyle.title, displayMode: .never)
     
     self.push(viewController)
