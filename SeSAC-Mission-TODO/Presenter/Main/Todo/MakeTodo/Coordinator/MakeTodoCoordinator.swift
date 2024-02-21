@@ -47,6 +47,26 @@ extension MakeTodoCoordinator {
     modalNavigationController.pushViewController(viewController, animated: true)
   }
   
+  func showAlertWithModalController(
+    title: String,
+    message: String,
+    okTitle: String? = nil,
+    okStyle: UIAlertAction.Style = .default,
+    isCancelable: Bool = false,
+    completion: (() -> Void)? = nil
+  ) {
+    guard let modalNavigationController else { return }
+    
+    var alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+      .setAction(title: okTitle ?? "확인", style: okStyle, completion: completion)
+      
+    if isCancelable {
+      alertController = alertController.setCancelAction()
+    }
+    
+    modalNavigationController.present(alertController, animated: true)
+  }
+  
   func showUpdateDueDateView(current date: Date, config: TodoConfiguration, updateDateAction: @escaping (Date) -> Void) {
     let viewController = UpdateDueDateViewController(current: date, updateDateAction: updateDateAction)
       .navigationTitle(with: config.title, displayMode: .never)
