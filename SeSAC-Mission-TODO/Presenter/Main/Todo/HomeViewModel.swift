@@ -79,17 +79,7 @@ extension HomeViewModel {
   
   @MainActor
   func showMakeBoxView(makeBoxStyle: MakeBoxStyle) {
-    coordinator?.showMakeBoxView(makeBoxStyle: makeBoxStyle) { [weak self] todoBox in
-      guard let self else { return }
-      
-      do {
-        try todoBoxRepository.create(with: todoBox)
-      } catch {
-        let error = RealmError.addFailed(error: error)
-        LogManager.shared.log(with: error, to: .local)
-        coordinator?.showErrorAlert(error: error)
-      }
-    }
+    coordinator?.showMakeBoxView(makeBoxStyle: makeBoxStyle)
   }
   
   @MainActor
