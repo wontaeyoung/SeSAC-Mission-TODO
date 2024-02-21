@@ -11,6 +11,7 @@ protocol TodoBoxRepository {
   
   // MARK: - Method
   func create(with item: TodoBox) throws
+  func append(with item: TodoItem, to box: TodoBox) throws
   func fetch() -> Results<TodoBox>
   func fetchSorted(by column: TodoBox.Column, ascending: Bool) -> Results<TodoBox>
   func update(to item: TodoBox, with value: [TodoBox.Column: Any]) throws
