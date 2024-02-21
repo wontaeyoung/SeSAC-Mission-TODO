@@ -21,9 +21,18 @@ enum MakeBoxStyle {
         return "박스 수정하기"
     }
   }
+  
+  var barTitle: String {
+    switch self {
+      case .add:
+        return "추가"
+      case .update:
+        return "수정"
+    }
+  }
 }
 
-final class MakeBoxViewController: BaseViewController {
+final class MakeBoxViewController: BaseViewController, ViewModelController {
   
   // MARK: - UI
   private let titleCardView = CardView()
@@ -39,6 +48,7 @@ final class MakeBoxViewController: BaseViewController {
   }
   
   private lazy var titleField = UITextField().configured {
+    $0.text = viewModel.object.name
     $0.placeholder = "목록 이름"
     $0.textAlignment = .center
     $0.borderStyle = .roundedRect
@@ -101,37 +111,34 @@ final class MakeBoxViewController: BaseViewController {
   }
   
   // MARK: - Property
-  private let makeBoxStyle: MakeBoxStyle
+  let viewModel: MakeBoxViewModel
   
-  private var boxColor: BoxIcon.BoxColor {
-    didSet {
-      boxIconButton.configuration?.baseBackgroundColor = iconColor
-    }
+  private var todoBox: TodoBox {
+    return viewModel.object
   }
-  private var boxSymbol: BoxIcon.BoxSymbol {
-    didSet {
-      boxIconButton.configuration?.image = iconImage
-    }
-  }
+  
+  private var icon: BoxIcon = BoxIcon()
   
   private var selectedColorIndex: Int {
     didSet {
-      boxColor = .allCases[selectedColorIndex]
+      icon.color = BoxIcon.BoxColor.allCases[selectedColorIndex].code
+      updateUI()
     }
   }
   
   private var selectedSymbolIndex: Int {
     didSet {
-      boxSymbol = .allCases[selectedSymbolIndex]
+      icon.symbol = BoxIcon.BoxSymbol.allCases[selectedSymbolIndex].symbol
+      updateUI()
     }
   }
   
   private var iconColor: UIColor {
-    return UIColor(hex: boxColor.code)
+    return UIColor(hex: icon.color)
   }
   
   private var iconImage: UIImage? {
-    return UIImage(systemName: boxSymbol.symbol)
+    return UIImage(systemName: icon.symbol)
   }
   
   private var colorItems: [UIView] {
@@ -147,29 +154,14 @@ final class MakeBoxViewController: BaseViewController {
   }
   
   // MARK: - Initializer
-  init(makeBoxStyle: MakeBoxStyle, makeBoxAction: @escaping (TodoBox) -> Void) {
-    var title: String?
-    self.makeBoxStyle = makeBoxStyle
+  init(viewModel: MakeBoxViewModel, makeBoxStyle: MakeBoxStyle) {
     
-    switch makeBoxStyle {
-      case .add:
-        self.boxColor = .first
-        self.boxSymbol = .first
-        
-      case .update(let box):
-        let icon = box.icon ?? .default
-        
-        self.boxColor = icon.boxColor
-        self.boxSymbol = icon.boxSymbol
-        title = box.name
-    }
-    
-    self.selectedColorIndex = boxColor.index
-    self.selectedSymbolIndex = boxSymbol.index
+    self.viewModel = viewModel
+    self.selectedColorIndex = viewModel.object.icon.boxColor.index
+    self.selectedSymbolIndex = viewModel.object.icon.boxSymbol.index
     
     super.init()
-    
-    self.titleField.text = title
+    setBarItem(style: makeBoxStyle)
   }
   
   // MARK: - Life Cycle
@@ -181,8 +173,8 @@ final class MakeBoxViewController: BaseViewController {
   }
   
   override func setAttribute() {
-    setBarItem()
     updateDoneButtonEnabled(isEmpty: titleText.isEmpty)
+    self.titleField.text = viewModel.object.name
     
     GCD.main { [weak self] in
       guard let self else { return }
@@ -230,8 +222,13 @@ final class MakeBoxViewController: BaseViewController {
   }
   
   // MARK: - Method
-  private func setBarItem() {
-    let done = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(doneTapped))
+  private func updateUI() {
+    boxIconButton.configuration?.baseBackgroundColor = iconColor
+    boxIconButton.configuration?.image = iconImage
+  }
+  
+  private func setBarItem(style: MakeBoxStyle) {
+    let done = UIBarButtonItem(title: style.barTitle, style: .plain, target: self, action: #selector(doneTapped))
     
     navigationItem.rightBarButtonItem = done
   }
@@ -268,21 +265,14 @@ final class MakeBoxViewController: BaseViewController {
     }
   }
   
-  private func createNewTodoBox() -> TodoBox {
-    let boxIcon = BoxIcon(color: boxColor.code, symbol: boxSymbol.symbol)
-    
-    return TodoBox(name: titleText, icon: boxIcon)
-  }
-  
   private func updateDoneButtonEnabled(isEmpty: Bool) {
     navigationItem.rightBarButtonItem?.isEnabled = !isEmpty
   }
   
   // MARK: - Selector
   @objc private func doneTapped() {
-    let todoBox = createNewTodoBox()
-    
-    navigationController?.popViewController(animated: true)
+    viewModel.update(title: titleText, icon: icon)
+    viewModel.pop()
   }
   
   @objc private func titleFieldDidChanged() {
