@@ -92,10 +92,15 @@ final class HomeViewController: BaseViewController, ViewModelController {
       tableView.reloadData()
       collectonView.reloadData()
       updateAddTodoButtonEnabled()
+      updateBoxListHeaderLabelHidden()
     }
   }
   
   // MARK: - Method
+  private func updateBoxListHeaderLabelHidden() {
+    boxListTitleLabel.isHidden = viewModel.collection.isEmpty
+  }
+  
   private func updateAddTodoButtonEnabled() {
     addTodoButton.isEnabled = !viewModel.collection.isEmpty
   }
