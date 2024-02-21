@@ -202,7 +202,11 @@ final class MakeTodoViewController: BaseViewController, ViewModelController {
   
   // MARK: - Selector
   @objc private func cancelBarButtonTapped() {
-    viewModel.dismiss()
+    if titleText.isEmpty && memo.isEmpty {
+      viewModel.dismiss()
+    } else {
+      viewModel.showContentDestructionAlert()
+    }
   }
   
   @objc private func addBarButtonTapped() {
