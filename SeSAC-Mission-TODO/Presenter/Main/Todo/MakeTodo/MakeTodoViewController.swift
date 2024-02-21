@@ -50,6 +50,18 @@ final class MakeTodoViewController: BaseViewController, ViewModelController {
     $0.spellCheckingType = .no
   }
   
+  private lazy var updateBoxButton = UIButton().configured {
+    $0.configuration = .tinted().configured {
+      $0.buttonSize = .large
+      $0.cornerStyle = .large
+      $0.baseForegroundColor = .white
+      $0.imagePadding = 12
+      $0.imagePlacement = .leading
+    }
+    
+    $0.addTarget(self, action: #selector(updateBoxButtonTapped), for: .touchUpInside)
+  }
+  
   private lazy var configTableView = UITableView().configured {
     $0.keyboardDismissMode = .onDrag
     $0.register(TodoConfigTableViewCell.self, forCellReuseIdentifier: TodoConfigTableViewCell.identifier)
@@ -79,6 +91,8 @@ final class MakeTodoViewController: BaseViewController, ViewModelController {
     
     super.init()
     
+    updateBoxUI(with: viewModel.currentBox)
+    
     NotificationManager.shared.add(self, key: TodoNotification.NameKey.updateConfig) { [weak self] notification in
       guard let self else { return }
       
@@ -91,6 +105,11 @@ final class MakeTodoViewController: BaseViewController, ViewModelController {
         viewModel.updatePriority(with: priority)
         reloadConfig(with: .priority)
       }
+      
+      if let box = notification.userInfo?[TodoNotification.InfoKey.box.name] as? TodoBox {
+        viewModel.updateBox(with: box)
+        updateBoxUI(with: box)
+      }
     }
   }
   
@@ -99,8 +118,13 @@ final class MakeTodoViewController: BaseViewController, ViewModelController {
   }
   
   // MARK: - Life Cycle
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    view.endEditing(true)
+  }
+  
   override func setHierarchy() {
-    view.addSubviews(cardView, configTableView, photoImageView)
+    view.addSubviews(cardView, updateBoxButton, configTableView, photoImageView)
     cardView.addSubviews(titleTextField, divider, memoTextView)
   }
   
@@ -114,7 +138,7 @@ final class MakeTodoViewController: BaseViewController, ViewModelController {
     }
     
     titleTextField.snp.makeConstraints { make in
-      make.top.horizontalEdges.equalTo(cardView).inset(8)
+      make.top.horizontalEdges.equalTo(cardView).inset(16)
     }
     
     divider.snp.makeConstraints { make in
@@ -124,19 +148,24 @@ final class MakeTodoViewController: BaseViewController, ViewModelController {
     
     memoTextView.snp.makeConstraints { make in
       make.top.equalTo(divider.snp.bottom).offset(8)
-      make.bottom.horizontalEdges.equalTo(cardView).inset(8)
+      make.bottom.horizontalEdges.equalTo(cardView).inset(12)
       make.height.equalTo(150)
     }
     
+    updateBoxButton.snp.makeConstraints { make in
+      make.top.equalTo(cardView.snp.bottom).offset(16)
+      make.horizontalEdges.equalTo(view).inset(16)
+    }
+    
     configTableView.snp.makeConstraints { make in
-      make.top.equalTo(cardView.snp.bottom).offset(8)
+      make.top.equalTo(updateBoxButton.snp.bottom).offset(8)
       make.horizontalEdges.equalTo(view).inset(16)
     }
     
     photoImageView.snp.makeConstraints { make in
       make.top.equalTo(configTableView.snp.bottom).offset(8)
       make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide).inset(16)
-      make.size.equalTo(200)
+      make.size.equalTo(150)
     }
   }
   
@@ -181,6 +210,16 @@ final class MakeTodoViewController: BaseViewController, ViewModelController {
   
   private func reloadConfig(with config: TodoConfiguration) {
     configTableView.reloadRow(row: config.row)
+  }
+  
+  private func updateBoxUI(with box: TodoBox) {
+    guard let icon = box.icon else { return }
+    
+    updateBoxButton.configuration?.configure {
+      $0.title = box.name
+      $0.image = UIImage(systemName: icon.symbol)
+      $0.baseBackgroundColor = UIColor(hex: icon.color)
+    }
   }
   
   private func showPhotoSelectionActionSheet() {
@@ -233,6 +272,10 @@ final class MakeTodoViewController: BaseViewController, ViewModelController {
   
   @objc private func textFieldDidChange() {
     updateAddButtonEnabled(isTitleEmpty: titleText.isEmpty)
+  }
+  
+  @objc private func updateBoxButtonTapped() {
+    viewModel.showUpdateBoxView()
   }
 }
 
@@ -335,6 +378,7 @@ struct TodoNotification {
   enum InfoKey: String, NotificationInfoKey {
     case flag
     case priority
+    case box
   }
   
   struct Info: NotificationInfo {

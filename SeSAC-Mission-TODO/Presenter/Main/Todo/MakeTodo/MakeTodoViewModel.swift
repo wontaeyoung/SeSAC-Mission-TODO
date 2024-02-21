@@ -17,6 +17,7 @@ final class MakeTodoViewModel: RealmObjectViewModel {
   weak var coordinator: MakeTodoCoordinator?
   private let todoBoxRepository: any TodoBoxRepository
   private let todoItemRepository: any TodoItemRepository
+  private var makeTodoStyle: MakeTodoStyle
   
   // MARK: - Model
   var object: TodoItem
@@ -29,6 +30,7 @@ final class MakeTodoViewModel: RealmObjectViewModel {
     self.coordinator = coordinator
     self.todoBoxRepository = todoBoxRepository
     self.todoItemRepository = todoItemRepository
+    self.makeTodoStyle = makeTodoStyle
     
     switch makeTodoStyle {
       case .add(let box):
@@ -37,7 +39,7 @@ final class MakeTodoViewModel: RealmObjectViewModel {
         
       case .update(let todo):
         self.object = todo
-        self.currentBox = todo.box.first ?? todoBoxRepository.fetch().first!
+        self.currentBox = todo.box.first ?? .default
     }
   }
   
@@ -46,9 +48,14 @@ final class MakeTodoViewModel: RealmObjectViewModel {
   }
   
   // MARK: - Method
+  func fetchTodoBox() -> Results<TodoBox> {
+    return todoBoxRepository.fetch()
+  }
+  
   func add() {
     do {
-      try repository.create(with: object)
+      try todoBoxRepository.create(with: currentBox)
+      try todoBoxRepository.append(with: object, to: currentBox)
     } catch {
       let realmError: RealmError = .addFailed(error: error)
       LogManager.shared.log(with: realmError, to: .local)
@@ -105,6 +112,10 @@ extension MakeTodoViewModel {
   func updatePriority(with priority: Int) {
     object.priority = priority
   }
+  
+  func updateBox(with box: TodoBox) {
+    currentBox = box
+  }
 }
 
 extension MakeTodoViewModel {
@@ -124,6 +135,11 @@ extension MakeTodoViewModel {
     ) {
       self.dismiss()
     }
+  }
+  
+  @MainActor
+  func showUpdateBoxView() {
+    coordinator?.showUpdateBoxView(makeTodoStyle: makeTodoStyle)
   }
   
   @MainActor
