@@ -37,6 +37,10 @@ final class TodoBox: Object, RealmModel {
     self.icon = icon
     self.items = List<TodoItem>()
   }
+  
+  static var `default`: TodoBox {
+    return .init(name: "기본 목록", icon: .default)
+  }
 }
 
 final class BoxIcon: EmbeddedObject {
