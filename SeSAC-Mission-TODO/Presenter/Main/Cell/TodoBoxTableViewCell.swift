@@ -56,7 +56,7 @@ final class TodoBoxTableViewCell: BaseTableViewCell {
   }
   
   // MARK: - Method
-  func updateUI(with data: TodoBox) {
+  func updateUI(with data: TodoBox, showCountHidden: Bool = false) {
     guard let icon = data.icon else { return }
     
     iconButton.configuration?.configure {
@@ -66,9 +66,6 @@ final class TodoBoxTableViewCell: BaseTableViewCell {
     
     titleLabel.text = data.name
     itemCountLabel.text = "\(data.items.count)"
+    itemCountLabel.isHidden = showCountHidden
   }
-}
-
-#Preview {
-  TodoTableViewCell(style: .default, reuseIdentifier: TodoTableViewCell.identifier)
 }
