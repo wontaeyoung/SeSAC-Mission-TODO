@@ -22,6 +22,12 @@ final class LiveTodoBoxRepository: TodoBoxRepository {
     }
   }
   
+  func append(with item: TodoItem, to box: TodoBox) throws {
+    try realm.write {
+      box.items.append(item)
+    }
+  }
+  
   func fetch() -> Results<TodoBox> {
     return objects
   }
