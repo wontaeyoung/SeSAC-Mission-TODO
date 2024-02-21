@@ -102,7 +102,6 @@ final class MakeBoxViewController: BaseViewController {
   
   // MARK: - Property
   private let makeBoxStyle: MakeBoxStyle
-  private let makeBoxAction: (TodoBox) -> Void
   
   private var boxColor: BoxIcon.BoxColor {
     didSet {
@@ -151,7 +150,6 @@ final class MakeBoxViewController: BaseViewController {
   init(makeBoxStyle: MakeBoxStyle, makeBoxAction: @escaping (TodoBox) -> Void) {
     var title: String?
     self.makeBoxStyle = makeBoxStyle
-    self.makeBoxAction = makeBoxAction
     
     switch makeBoxStyle {
       case .add:
@@ -284,7 +282,6 @@ final class MakeBoxViewController: BaseViewController {
   @objc private func doneTapped() {
     let todoBox = createNewTodoBox()
     
-    makeBoxAction(todoBox)
     navigationController?.popViewController(animated: true)
   }
   

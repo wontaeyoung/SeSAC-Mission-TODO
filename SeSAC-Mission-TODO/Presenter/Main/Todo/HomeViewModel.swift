@@ -101,4 +101,9 @@ extension HomeViewModel {
   func showTodoListView(state: TodoItem.State) {
     coordinator?.showTodoListView(with: filter(by: state), state: state)
   }
+  
+  @MainActor
+  func showBoxTodoListView(with box: TodoBox) {
+    coordinator?.showBoxTodoListView(with: box)
+  }
 }
