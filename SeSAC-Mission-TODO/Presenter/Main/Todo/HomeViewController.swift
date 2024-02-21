@@ -32,7 +32,7 @@ final class HomeViewController: BaseViewController, ViewModelController {
   
   private lazy var addTodoButton = UIButton().configured { button in
     button.configuration = .plain().configured {
-      $0.title = MakeTodoStyle.add.title
+      $0.title = "새로운 할 일"
       $0.image = UIImage(systemName: "plus.circle.fill")
       $0.imagePadding = 8
     }

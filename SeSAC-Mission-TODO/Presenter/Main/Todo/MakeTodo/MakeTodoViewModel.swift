@@ -31,9 +31,9 @@ final class MakeTodoViewModel: RealmObjectViewModel {
     self.todoItemRepository = todoItemRepository
     
     switch makeTodoStyle {
-      case .add:
+      case .add(let box):
         self.object = .empty
-        self.currentBox = todoBoxRepository.fetch().first!
+        self.currentBox = box
         
       case .update(let todo):
         self.object = todo
