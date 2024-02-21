@@ -115,6 +115,18 @@ extension MakeTodoViewModel {
   }
   
   @MainActor
+  func showContentDestructionAlert() {
+    coordinator?.showAlertWithModalController(
+      title: "작성한 내용이 사라져요!",
+      message: "작성을 그만하고 돌아갈까요?",
+      okStyle: .destructive,
+      isCancelable: true
+    ) {
+      self.dismiss()
+    }
+  }
+  
+  @MainActor
   func showUpdateDueDateView(current date: Date, config: TodoConfiguration, updateDateAction: @escaping (Date) -> Void) {
     coordinator?.showUpdateDueDateView(current: date, config: config, updateDateAction: updateDateAction)
   }
