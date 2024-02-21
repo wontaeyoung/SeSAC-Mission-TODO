@@ -169,6 +169,12 @@ extension HomeViewController: TableControllable {
     return cell
   }
   
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let data = viewModel.collection[indexPath.row]
+    viewModel.showBoxTodoListView(with: data)
+    tableView.deselectRow(at: indexPath, animated: true)
+  }
+  
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return 50
   }
