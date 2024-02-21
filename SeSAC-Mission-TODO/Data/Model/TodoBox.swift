@@ -26,7 +26,7 @@ final class TodoBox: Object, RealmModel {
   @Persisted(primaryKey: true) var id: ObjectId
   @Persisted var name: String
   @Persisted var createAt: Date
-  @Persisted var icon: BoxIcon?
+  @Persisted var icon: BoxIcon!
   @Persisted var items: List<TodoItem>
   
   convenience init(name: String, icon: BoxIcon) {
@@ -39,7 +39,7 @@ final class TodoBox: Object, RealmModel {
   }
   
   static var `default`: TodoBox {
-    return .init(name: "기본 목록", icon: .default)
+    return .init(name: "", icon: .default)
   }
 }
 
