@@ -23,7 +23,7 @@ final class HomeViewController: BaseViewController, ViewModelController {
     $0.font = .systemFont(ofSize: 20, weight: .semibold)
   }
   
-  private lazy var tableView = UITableView().configured {
+  private lazy var tableView = UITableView(frame: .zero, style: .insetGrouped).configured {
     $0.register(TodoBoxTableViewCell.self, forCellReuseIdentifier: TodoBoxTableViewCell.identifier)
     $0.delegate = self
     $0.dataSource = self
@@ -76,11 +76,11 @@ final class HomeViewController: BaseViewController, ViewModelController {
     
     boxListTitleLabel.snp.makeConstraints { make in
       make.top.equalTo(collectonView.snp.bottom).offset(16)
-      make.horizontalEdges.equalTo(view).inset(12)
+      make.horizontalEdges.equalTo(view).inset(20)
     }
     
     tableView.snp.makeConstraints { make in
-      make.top.equalTo(boxListTitleLabel.snp.bottom).offset(8)
+      make.top.equalTo(boxListTitleLabel.snp.bottom).offset(16)
       make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
     }
   }
@@ -102,7 +102,7 @@ final class HomeViewController: BaseViewController, ViewModelController {
   
   // MARK: - Selector
   @objc private func addTodoButtonTapped() {
-    viewModel.showMakeTodoView(makeTodoStyle: .add)
+    viewModel.showMakeTodoView(makeTodoStyle: .add(box: viewModel.collection.first!))
   }
   
   @objc private func addListBarButtonTapped() {
@@ -162,5 +162,17 @@ extension HomeViewController: TableControllable {
     cell.accessoryType = .disclosureIndicator
     
     return cell
+  }
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 50
+  }
+  
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    return UIView()
+  }
+  
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return 0
   }
 }
