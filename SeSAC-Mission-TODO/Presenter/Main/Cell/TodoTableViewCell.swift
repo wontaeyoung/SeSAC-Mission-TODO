@@ -15,18 +15,32 @@ final class TodoTableViewCell: BaseTableViewCell {
   private lazy var doneCheckboxButton = UIButton().configured {
     $0.addTarget(self, action: #selector(checkbokTapped), for: .touchUpInside)
   }
-  private let titleLabel = UILabel().configured { $0.font = .systemFont(ofSize: 15, weight: .bold) }
-  private let memoLabel = UILabel().configured { $0.font = .systemFont(ofSize: 13, weight: .regular) }
-  private let priorityLabel = UILabel().configured { $0.font = .systemFont(ofSize: 13, weight: .semibold) }
+  
+  private let titleLabel = UILabel().configured {
+    $0.font = .systemFont(ofSize: 15, weight: .bold)
+  }
+  
+  private let memoLabel = UILabel().configured {
+    $0.font = .systemFont(ofSize: 13, weight: .regular)
+  }
+  
+  private let priorityLabel = UILabel().configured {
+    $0.font = .systemFont(ofSize: 13, weight: .semibold)
+  }
+  
   private let tagLabel = UILabel().configured {
     $0.textColor = .gray
     $0.font = .systemFont(ofSize: 13, weight: .regular)
   }
+  
   private let dueDateLabel = UILabel().configured {
     $0.textAlignment = .right
     $0.font = .systemFont(ofSize: 13, weight: .semibold)
   }
-  private let photoImageView = UIImageView().configured { $0.contentMode = .scaleAspectFit }
+  
+  private let photoImageView = UIImageView().configured {
+    $0.contentMode = .scaleAspectFit
+  }
   
   // MARK: - Property
   var checkboxUpdateAction: (() -> Void)?
@@ -40,6 +54,10 @@ final class TodoTableViewCell: BaseTableViewCell {
       priorityLabel,
       tagLabel
     )
+  }
+  
+  override func setAttribute() {
+    self.backgroundConfiguration = .listGroupedCell()
   }
   
   override func setConstraint() {
