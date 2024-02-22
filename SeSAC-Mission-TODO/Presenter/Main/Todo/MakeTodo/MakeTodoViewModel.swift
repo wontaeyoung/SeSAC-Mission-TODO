@@ -141,7 +141,13 @@ extension MakeTodoViewModel {
   
   @MainActor
   func showUpdateBoxView() {
-    coordinator?.showUpdateBoxView(makeTodoStyle: makeTodoStyle)
+    switch makeTodoStyle {
+      case .add:
+        coordinator?.showUpdateBoxView(makeTodoStyle: .add(box: currentBox))
+        
+      case .update:
+        coordinator?.showUpdateBoxView(makeTodoStyle: .update(todo: object))   
+    }
   }
   
   @MainActor
