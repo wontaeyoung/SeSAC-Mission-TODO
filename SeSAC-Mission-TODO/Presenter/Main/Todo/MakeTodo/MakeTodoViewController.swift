@@ -107,6 +107,7 @@ final class MakeTodoViewController: BaseViewController, ViewModelController {
     setBarItems(style: makeTodoStyle)
     updateUI()
     updateBoxUI(with: viewModel.currentBox)
+    updateAddButtonEnabled(isTitleEmpty: titleText.isEmpty)
     
     NotificationManager.shared.add(self, key: TodoNotification.NameKey.updateConfig) { [weak self] notification in
       guard let self else { return }
@@ -182,10 +183,14 @@ final class MakeTodoViewController: BaseViewController, ViewModelController {
   
   // MARK: - Method
   private func updateUI() {
-    let todoItem = viewModel.object
+    let todoItem = viewModel.tempObject
     
     titleTextField.text = todoItem.title
     memoTextView.text = todoItem.memo
+    
+    if let data = viewModel.loadImage(router: .read(fileName: todoItem.id.stringValue, fileExtension: .jpg)) {
+      photoImageView.image = UIImage(data: data)
+    }
   }
   
   private func setBarItems(style: MakeTodoStyle) {
@@ -205,7 +210,7 @@ final class MakeTodoViewController: BaseViewController, ViewModelController {
   private func showUpdateConfigView(with config: TodoConfiguration) {
     switch config {
       case .dutDate:
-        viewModel.showUpdateDueDateView(current: viewModel.object.dueDate, config: config) { [weak self] date in
+        viewModel.showUpdateDueDateView(current: viewModel.tempObject.dueDate, config: config) { [weak self] date in
           guard let self else { return }
           
           viewModel.updateDueDate(with: date)
@@ -213,13 +218,13 @@ final class MakeTodoViewController: BaseViewController, ViewModelController {
         }
         
       case .flag:
-        viewModel.showUpdateFlagView(current: viewModel.object.isFlag, config: config)
+        viewModel.showUpdateFlagView(current: viewModel.tempObject.isFlag, config: config)
       
       case .tag:
-        viewModel.showUpdateTagView(config: config, tags: viewModel.object.tags, delegate: self)
+        viewModel.showUpdateTagView(config: config, tags: viewModel.tempObject.tags, delegate: self)
         
       case .priority:
-        viewModel.showUpdatePriorityView(current: viewModel.object.priority, config: config)
+        viewModel.showUpdatePriorityView(current: viewModel.tempObject.priority, config: config)
         
       case .addImage:
         showPhotoSelectionActionSheet()
@@ -273,14 +278,21 @@ final class MakeTodoViewController: BaseViewController, ViewModelController {
   @objc private func addBarButtonTapped() {
     viewModel.updateTitle(with: titleText)
     viewModel.updateMemo(with: memo)
-    viewModel.add()
     viewModel.dismiss()
+    
+    switch viewModel.makeTodoStyle {
+      case .add:
+        viewModel.add()
+        
+      case .update:
+        viewModel.update()
+    }
     
     if let image = photoImageView.image {
       viewModel.writeImage(
         image: image,
         router: .write(
-          fileName: viewModel.object.id.stringValue,
+          fileName: viewModel.tempObject.id.stringValue,
           fileExtension: .jpg,
           level: .middle
         )
@@ -322,7 +334,7 @@ extension MakeTodoViewController: TableControllable {
       for: indexPath
     ) as! TodoConfigTableViewCell
     
-    let data = viewModel.object
+    let data = viewModel.tempObject
     let config = TodoConfiguration.allCases[indexPath.row]
     cell.updateUI(with: data, config: config)
     

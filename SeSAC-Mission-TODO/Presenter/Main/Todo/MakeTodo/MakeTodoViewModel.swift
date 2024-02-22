@@ -17,13 +17,14 @@ final class MakeTodoViewModel: RealmObjectViewModel {
   weak var coordinator: MakeTodoCoordinator?
   private let todoBoxRepository: any TodoBoxRepository
   private let todoItemRepository: any TodoItemRepository
-  private var makeTodoStyle: MakeTodoStyle
+  var makeTodoStyle: MakeTodoStyle
   
   // MARK: - Model
-  var object: TodoItem
-  var bindAction: ((TodoItem) -> Void)?
+  var object: ObjectType
+  var bindAction: ((ObjectType) -> Void)?
   var notificationToken: NotificationToken?
   var currentBox: TodoBox
+  var tempObject: ObjectType
   
   // MARK: - Initializer
   init(coordinator: MakeTodoCoordinator? = nil, todoBoxRepository: any TodoBoxRepository, todoItemRepository: any TodoItemRepository, makeTodoStyle: MakeTodoStyle) {
@@ -41,6 +42,7 @@ final class MakeTodoViewModel: RealmObjectViewModel {
         self.object = todo
         self.currentBox = todo.box.first ?? .default
     }
+    self.tempObject = object.copied
   }
   
   deinit {
@@ -55,11 +57,21 @@ final class MakeTodoViewModel: RealmObjectViewModel {
   func add() {
     do {
       try todoBoxRepository.create(with: currentBox)
-      try todoBoxRepository.append(with: object, to: currentBox)
+      try todoBoxRepository.append(with: tempObject, to: currentBox)
     } catch {
       let realmError: RealmError = .addFailed(error: error)
       LogManager.shared.log(with: realmError, to: .local)
       Task { await coordinator?.showErrorAlert(error: realmError) }
+    }
+  }
+  
+  func update() {
+    do {
+      try todoBoxRepository.updateListItem(to: currentBox, at: tempObject, updating: { _ in })
+    } catch {
+      let realmError: RealmError = .updateFailed(error: error)
+      LogManager.shared.log(with: realmError, to: .local)
+      Task { await coordinator?.showAlertWithModalController(title: "ASD", message: "ZXC") }
     }
   }
   
@@ -99,42 +111,29 @@ final class MakeTodoViewModel: RealmObjectViewModel {
 
 // FIXME: -
 /// 업데이트 화면에서는 수정이 트랜젝션에서 이뤄져야해서 레포지토리로 가져가서 update 안하면 런타임 에러 발생함
+/// 24.02.23
+/// 임시 오브젝트로 Realm 매니징 관계를 끊어서 트랜잭션 문제는 수정했지만, 기본 object 자체를 아예 안쓰기 때문에 구조상 문제가 있음
+/// Realm 객체를 DTO로 분리해서 매니징에서 오는 문제 수정이 필요함
 extension MakeTodoViewModel {
   
   func updateTitle(with title: String) {
-    do {
-      try todoBoxRepository.updateListItem(to: currentBox, at: object) { todo in
-        todo.title = title
-      }
-    } catch {
-      let error = RealmError.updateFailed(error: error)
-      LogManager.shared.log(with: error, to: .local)
-      Task { await coordinator?.showErrorAlert(error: error) }
-    }
+    tempObject.title = title
   }
   
   func updateMemo(with memo: String) {
-    do {
-      try todoBoxRepository.updateListItem(to: currentBox, at: object) { todo in
-        todo.memo = memo
-      }
-    } catch {
-      let error = RealmError.updateFailed(error: error)
-      LogManager.shared.log(with: error, to: .local)
-      Task { await coordinator?.showErrorAlert(error: error) }
-    }
+    tempObject.memo = memo
   }
   
   func updateDueDate(with date: Date) {
-    object.dueDate = date
+    tempObject.dueDate = date
   }
   
   func updateFlag(with isFlag: Bool) {
-    object.isFlag = isFlag
+    tempObject.isFlag = isFlag
   }
   
   func updatePriority(with priority: Int) {
-    object.priority = priority
+    tempObject.priority = priority
   }
   
   func updateBox(with box: TodoBox) {

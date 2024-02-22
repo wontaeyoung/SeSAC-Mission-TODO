@@ -70,6 +70,19 @@ final class TodoItem: Object, RealmModel {
   static var empty: TodoItem {
     return TodoItem()
   }
+  
+  var copied: TodoItem {
+    return TodoItem().configured {
+      $0.id = id
+      $0.title = title
+      $0.memo = memo
+      $0.dueDate = dueDate
+      $0.tags = tags
+      $0.isFlag = isFlag
+      $0.priority = priority
+      $0.isDone = isDone
+    }
+  }
 }
 
 extension TodoItem {
