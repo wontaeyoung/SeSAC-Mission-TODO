@@ -21,6 +21,15 @@ enum MakeTodoStyle {
         return "할 일 수정하기"
     }
   }
+  
+  var barTitle: String {
+    switch self {
+      case .add:
+        return "추가"
+      case .update:
+        return "수정"
+    }
+  }
 }
 
 final class MakeTodoViewController: BaseViewController, ViewModelController {
@@ -86,11 +95,13 @@ final class MakeTodoViewController: BaseViewController, ViewModelController {
   }
   
   // MARK: - Initialzier
-  init(viewModel: MakeTodoViewModel) {
+  init(viewModel: MakeTodoViewModel, makeTodoStyle: MakeTodoStyle) {
     self.viewModel = viewModel
     
     super.init()
     
+    setBarItems(style: makeTodoStyle)
+    updateUI()
     updateBoxUI(with: viewModel.currentBox)
     
     NotificationManager.shared.add(self, key: TodoNotification.NameKey.updateConfig) { [weak self] notification in
@@ -126,10 +137,6 @@ final class MakeTodoViewController: BaseViewController, ViewModelController {
   override func setHierarchy() {
     view.addSubviews(cardView, updateBoxButton, configTableView, photoImageView)
     cardView.addSubviews(titleTextField, divider, memoTextView)
-  }
-  
-  override func setAttribute() {
-    setNavigationItems()
   }
   
   override func setConstraint() {
@@ -170,12 +177,19 @@ final class MakeTodoViewController: BaseViewController, ViewModelController {
   }
   
   // MARK: - Method
-  private func setNavigationItems() {
-    let cancelBarButton = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(cancelBarButtonTapped))
-    let addBarButton = UIBarButtonItem(title: "추가", style: .plain, target: self, action: #selector(addBarButtonTapped))
+  private func updateUI() {
+    let todoItem = viewModel.object
     
-    navigationItem.leftBarButtonItem = cancelBarButton
-    navigationItem.rightBarButtonItem = addBarButton
+    titleTextField.text = todoItem.title
+    memoTextView.text = todoItem.memo
+  }
+  
+  private func setBarItems(style: MakeTodoStyle) {
+    let cancel = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(cancelBarButtonTapped))
+    let make = UIBarButtonItem(title: style.barTitle, style: .plain, target: self, action: #selector(addBarButtonTapped))
+    
+    navigationItem.leftBarButtonItem = cancel
+    navigationItem.rightBarButtonItem = make
     
     updateAddButtonEnabled(isTitleEmpty: titleText.isEmpty)
   }
