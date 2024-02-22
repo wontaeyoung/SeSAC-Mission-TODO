@@ -31,8 +31,12 @@ extension MakeTodoCoordinator {
   func presentMakeTodoView(makeTodoStyle: MakeTodoStyle) {
     let todoBoxRepository = LiveTodoBoxRepository()
     let todoItemRepository = LiveTodoItemRepository()
-    let viewModel = MakeTodoViewModel(coordinator: self, todoBoxRepository: todoBoxRepository, todoItemRepository: todoItemRepository, makeTodoStyle: makeTodoStyle)
-    let viewController = MakeTodoViewController(viewModel: viewModel)
+    let viewModel = MakeTodoViewModel(coordinator: self, 
+                                      todoBoxRepository: todoBoxRepository,
+                                      todoItemRepository: todoItemRepository,
+                                      makeTodoStyle: makeTodoStyle)
+    let viewController = MakeTodoViewController(viewModel: viewModel,
+                                                makeTodoStyle: makeTodoStyle)
       .navigationTitle(with: makeTodoStyle.title, displayMode: .never)
       .hideBackTitle()
     
