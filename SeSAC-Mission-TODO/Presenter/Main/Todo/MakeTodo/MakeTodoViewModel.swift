@@ -91,6 +91,8 @@ final class MakeTodoViewModel: RealmObjectViewModel {
   }
 }
 
+// FIXME: -
+/// 업데이트 화면에서는 수정이 트랜젝션에서 이뤄져야해서 레포지토리로 가져가서 update 안하면 런타임 에러 발생함
 extension MakeTodoViewModel {
   
   func updateTitle(with title: String) {
