@@ -72,4 +72,8 @@ extension BoxTodoListViewModel {
   func showUpdateBoxView() {
     coordinator?.showMakeBoxView(makeBoxStyle: .update(box: object))
   }
+  
+  func showUpdateTodoView(row: Int) {
+    coordinator?.combineMakeTodoFlow(makeTodoStyle: .update(todo: object.items[row]))
+  }
 }
