@@ -92,6 +92,11 @@ extension BoxTodoListViewController: TableControllable {
     return cell
   }
   
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    viewModel.showUpdateTodoView(row: indexPath.row)
+    tableView.deselectRow(at: indexPath, animated: true)
+  }
+  
   func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     guard editingStyle == .delete else { return }
     
