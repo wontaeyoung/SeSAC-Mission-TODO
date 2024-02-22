@@ -107,7 +107,9 @@ final class HomeViewController: BaseViewController, ViewModelController {
   
   // MARK: - Selector
   @objc private func addTodoButtonTapped() {
-    viewModel.showMakeTodoView(makeTodoStyle: .add(box: viewModel.collection.first!))
+    guard let firstBox = viewModel.collection.first else { return }
+    
+    viewModel.showMakeTodoView(makeTodoStyle: .add(box: firstBox))
   }
   
   @objc private func addListBarButtonTapped() {
