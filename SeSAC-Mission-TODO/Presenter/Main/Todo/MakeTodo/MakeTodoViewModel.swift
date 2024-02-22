@@ -63,6 +63,12 @@ final class MakeTodoViewModel: RealmObjectViewModel {
     }
   }
   
+  func loadImage(router: PhotoFileRouter) -> Data? {
+    guard router.fileExist else { return nil }
+    
+    return FileManager.default.contents(atPath: router.filePath)
+  }
+  
   func writeImage(image: UIImage, router: PhotoFileRouter) {
     guard let data = image.jpegData(compressionQuality: router.compressionPercent) else {
       LogManager.shared.log(with: FileManageError.imageToDataFailed, to: .local)
@@ -96,11 +102,27 @@ final class MakeTodoViewModel: RealmObjectViewModel {
 extension MakeTodoViewModel {
   
   func updateTitle(with title: String) {
-    object.title = title
+    do {
+      try todoBoxRepository.updateListItem(to: currentBox, at: object) { todo in
+        todo.title = title
+      }
+    } catch {
+      let error = RealmError.updateFailed(error: error)
+      LogManager.shared.log(with: error, to: .local)
+      Task { await coordinator?.showErrorAlert(error: error) }
+    }
   }
   
   func updateMemo(with memo: String) {
-    object.memo = memo
+    do {
+      try todoBoxRepository.updateListItem(to: currentBox, at: object) { todo in
+        todo.memo = memo
+      }
+    } catch {
+      let error = RealmError.updateFailed(error: error)
+      LogManager.shared.log(with: error, to: .local)
+      Task { await coordinator?.showErrorAlert(error: error) }
+    }
   }
   
   func updateDueDate(with date: Date) {
