@@ -32,6 +32,10 @@ enum MakeTodoStyle {
   }
 }
 
+
+// FIXME: 업데이트를 모두 트랜잭션에서 하도록 수정하고, Realm에 올렸다가 취소하면 Delete 하는 로직으로 변경
+/// 취소 시 업데이트 변경사항을 반영하지 않아야되는데, 예외처리 가능한지 확인
+/// 뷰모델 들어올 때 id 포함해서 복사 한번하고, 덮어씌우는 방식으로 해야할 듯
 final class MakeTodoViewController: BaseViewController, ViewModelController {
   
   // MARK: - UI
